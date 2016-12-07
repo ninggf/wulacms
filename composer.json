@@ -1,0 +1,50 @@
+{
+  "name": "wula/wulacms",
+  "description": "我们努力做一个比较优秀的内容管理框架(CMF)，争取让她像异星战场中的乌拉一样快",
+  "require": {
+	"php": ">=5.6 || >= 7.1",
+	"ext-json": "*",
+	"ext-pdo": "*",
+	"ext-pdo_mysql": "*",
+	"ext-mbstring": "*",
+	"ext-curl": "*",
+	"ext-SPL": "*",
+	"ext-mysqlnd": "*",
+	"wula/wulaphp": "dev-master"
+  },
+  "require-dev": {
+	"psr/log": "^1.0",
+	"phpunit/phpunit": "*"
+  },
+  "license": "MIT",
+  "keywords": [
+	"CMF",
+	"CMS"
+  ],
+  "time": "2016-12-07",
+  "scripts": {
+	"post-create-project-cmd": [
+	  "php artisan init"
+	]
+  },
+  "type": "project",
+  "config": {
+	"preferred-install": "dist"
+  },
+  "authors": [
+	{
+	  "name": "Leo Ning",
+	  "email": "windywany@gmail.com"
+	}
+  ],
+  "extra": {
+	"branch-alias": {
+	  "dev-master": "1.0-dev"
+	}
+  },
+  "support": {
+	"issues": "https://github.com/ninggf/wulacms/issues"
+  },
+  "homepage": "http://www.wulacms.com/",
+  "minimum-stability": "dev"
+}
