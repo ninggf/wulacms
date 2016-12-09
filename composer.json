@@ -10,7 +10,8 @@
 	"ext-curl": "*",
 	"ext-SPL": "*",
 	"ext-mysqlnd": "*",
-	"wula/wulaphp": "dev-master"
+	"wula/wulaphp": "*",
+	"wula/ui": "*"
   },
   "require-dev": {
 	"psr/log": "^1.0",
