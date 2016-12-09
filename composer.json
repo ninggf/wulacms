@@ -39,6 +39,9 @@
 	}
   ],
   "extra": {
+	"wula": {
+	  "assets-dir": "vendor"
+	},
 	"branch-alias": {
 	  "dev-master": "1.0-dev"
 	}
