@@ -11,7 +11,7 @@
 	"ext-SPL": "*",
 	"ext-mysqlnd": "*",
 	"wula/wulaphp": "*",
-	"wula/cms": "*",
+	"wula/cms-support": "*",
 	"wula/ui": "*",
 	"wula/form": "*",
 	"wulacms/core": "*",
