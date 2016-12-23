@@ -16,3 +16,6 @@ tmp/
 # wulaphp
 .env
 wwwroot/vendor/
+extensions/wula/
+wwwroot/modules/core/
+wwwroot/modules/dashboard/

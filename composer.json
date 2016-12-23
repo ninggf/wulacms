@@ -11,7 +11,11 @@
 	"ext-SPL": "*",
 	"ext-mysqlnd": "*",
 	"wula/wulaphp": "*",
-	"wula/ui": "*"
+	"wula/cms": "*",
+	"wula/ui": "*",
+	"wula/form": "*",
+	"wulacms/core": "*",
+	"wulacms/dashboard": "*"
   },
   "require-dev": {
 	"psr/log": "^1.0",
