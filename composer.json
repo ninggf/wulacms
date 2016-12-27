@@ -54,5 +54,27 @@
 	"issues": "https://github.com/ninggf/wulacms/issues"
   },
   "homepage": "http://www.wulacms.com/",
-  "minimum-stability": "dev"
+  "minimum-stability": "dev",
+  "repositories": [
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulaphp.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_extension_cms.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_extension_form.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_core.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_dashboard.git"
+	}
+  ]
 }

@@ -18,12 +18,13 @@ define('APPID', 'app1');
 // define ('LIBS_DIR', 'includes' );
 /* 重新定义运行时内存限制 */
 // define ('RUNTIME_MEMORY_LIMIT', '128M' );
-/* 如果你要重新定义模块加载器,请 */
-// define('MODULE_LOADER_CLASS','wulaphp\app\ModuleLoader');
 /* 如果你要重新定义扩展加载器,请修改 */
 // define('EXTENSION_LOADER_CLASS', 'wulaphp\app\ExtensionLoader');
 /* 如果你要重新定义配置加载器,请修改 */
-// define('CONFIG_LOADER_CLASS','wulaphp\conf\ConfigurationLoader ');
+define('CONFIG_LOADER_CLASS', 'wula\cms\CmfConfigurationLoader');
+/* 如果你要重新定义模块加载器,请 */
+define('MODULE_LOADER_CLASS', 'wula\cms\CmfModuleLoader');
+
 // 以上配置选择性修改
 // //////////////////////////////////////////////////////////////////////////////
 // //////////////////////////////////////////////////////////////////////////////
@@ -36,5 +37,6 @@ if (!defined('WWWROOT')) {
 }
 // 加载composer的autoload.
 require APPROOT . 'vendor/autoload.php';
+
 // end of bootstrap.php
 //////////////////////////////////////////////////////////
