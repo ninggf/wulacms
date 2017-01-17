@@ -6,6 +6,10 @@ define('APPID', 'app1');
 // define('WWWROOT_DIR', '/');
 /* 如果你的网站对外目录不是wwwroot,请取消下一行注释并修改其值。*/
 // define('PUBLIC_DIR', 'wwwroot');
+/* 如果你想改变assets目录名，请联消下一行注释并修改其值 */
+// define('ASSETS_DIR', 'assets');
+/* 如果你想改变vendor目录名，请联消下一行注释并修改其值 */
+// define('VENDOR_DIR', 'vendor');
 /* 如果你想改modules目录名，请取消下一行注释并修改其值. */
 // define ('MODULE_DIR', 'modules' );
 /* 如果你想改themes目录名，请取消下一行注释并修改其值. */

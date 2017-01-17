@@ -10,4 +10,4 @@
  */
 
 //配置要安装的模块
-return ['modules' => ['home', 'core', 'dashboard']];
+return ['modules' => ['core', 'dashboard']];
