@@ -14,6 +14,8 @@ vendor/
 composer.lock
 tmp/
 # wulaphp
+test.php
+install.lock
 .env
 wwwroot/vendor/
 extensions/wula/
