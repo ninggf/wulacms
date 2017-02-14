@@ -39,8 +39,9 @@ defined('PUBLIC_DIR') or define('PUBLIC_DIR', 'wwwroot');
 if (!defined('WWWROOT')) {
 	define('WWWROOT', APPROOT . PUBLIC_DIR . DIRECTORY_SEPARATOR);
 }
+defined('VENDOR_DIR') or define('VENDOR_DIR', 'vendor');
 // 加载composer的autoload.
-require APPROOT . 'vendor/autoload.php';
+require APPROOT . VENDOR_DIR . DIRECTORY_SEPARATOR . 'autoload.php';
 
 // end of bootstrap.php
 //////////////////////////////////////////////////////////
