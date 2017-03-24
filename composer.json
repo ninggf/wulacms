@@ -75,6 +75,10 @@
 	{
 	  "type": "git",
 	  "url": "https://github.com/ninggf/wulacms_module_dashboard.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/hezhiying/wulaui.git"
 	}
   ]
 }

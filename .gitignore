@@ -17,7 +17,6 @@ tmp/
 test.php
 install.lock
 .env
-wwwroot/vendor/
 extensions/wula/
 wwwroot/modules/core/
 wwwroot/modules/dashboard/
