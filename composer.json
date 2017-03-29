@@ -19,7 +19,8 @@
   },
   "require-dev": {
 	"psr/log": "^1.0",
-	"phpunit/phpunit": "*"
+	"phpunit/phpunit": "*",
+	"ralouphie/mimey": "^1.0"
   },
   "license": "MIT",
   "keywords": [
