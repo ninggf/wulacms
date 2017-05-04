@@ -13,7 +13,6 @@
 	"wula/wulaphp": "*",
 	"wula/cms-support": "*",
 	"wula/ui": "*",
-	"wula/form": "*",
 	"wulacms/core": "*",
 	"wulacms/dashboard": "*"
   },
@@ -36,6 +35,8 @@
   "config": {
 	"preferred-install": "dist"
   },
+  "optimize-autoloader": true,
+  "apcu-autoloader": true,
   "authors": [
 	{
 	  "name": "Leo Ning",
@@ -63,10 +64,6 @@
 	{
 	  "type": "git",
 	  "url": "https://github.com/ninggf/wulacms_extension_cms.git"
-	},
-	{
-	  "type": "git",
-	  "url": "https://github.com/ninggf/wulacms_extension_form.git"
 	},
 	{
 	  "type": "git",

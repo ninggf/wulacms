@@ -6,7 +6,3 @@
     Order allow,deny
     Deny from all
 </FilesMatch>
-<FilesMatch "^(LICENSE|README\.MD)$">
-    Order allow,deny
-    Deny from all
-</FilesMatch>
