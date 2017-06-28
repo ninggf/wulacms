@@ -11,6 +11,7 @@
 	"ext-SPL": "*",
 	"ext-mysqlnd": "*",
 	"wula/wulaphp": "*",
+	"wula/curlient": "*",
 	"wula/cms-support": "*",
 	"wula/ui": "*",
 	"wulacms/core": "*",
@@ -75,6 +76,10 @@
 	{
 	  "type": "git",
 	  "url": "https://github.com/ninggf/wulaui.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/curlient.git"
 	}
   ]
 }
