@@ -17,9 +17,6 @@
 	"wulacms/core": "*",
 	"wulacms/dashboard": "*"
   },
-  "require-dev": {
-	"phpunit/phpunit": "*"
-  },
   "license": "MIT",
   "keywords": [
 	"CMF",
@@ -80,6 +77,10 @@
 	{
 	  "type": "git",
 	  "url": "https://github.com/ninggf/curlient.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wula-common.git"
 	}
   ]
 }
