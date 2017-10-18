@@ -14,7 +14,7 @@ if ($type == 'redis') {
 	$auth    = env('redis.auth');
 	$config->addRedisServer($host, $port, $db, $timeout, $auth);
 	$config->setDefaultCache(CACHE_TYPE_REDIS);
-} elseif ($type == 'memcached') {
+} else if ($type == 'memcached') {
 	$config->setDefaultCache(CACHE_TYPE_MEMCACHED);
 	$hosts = explode(',', env('memcached.host', 'localhost'));
 	$ports = explode(',', env('memcached.port', 11211));

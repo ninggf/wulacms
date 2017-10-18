@@ -7,6 +7,7 @@
 	"ext-pdo": "*",
 	"ext-pdo_mysql": "*",
 	"ext-mbstring": "*",
+	"ext-xml": "*",
 	"ext-curl": "*",
 	"ext-SPL": "*",
 	"ext-mysqlnd": "*",
@@ -15,7 +16,8 @@
 	"wula/cms-support": "*",
 	"wula/ui": "*",
 	"wulacms/core": "*",
-	"wulacms/dashboard": "*"
+	"wulacms/dashboard": "*",
+	"michelf/php-markdown": "^1.7"
   },
   "license": "MIT",
   "keywords": [
@@ -33,7 +35,6 @@
 	"preferred-install": "dist"
   },
   "optimize-autoloader": true,
-  "apcu-autoloader": true,
   "authors": [
 	{
 	  "name": "Leo Ning",
