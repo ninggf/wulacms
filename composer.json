@@ -17,6 +17,8 @@
 	"wula/ui": "*",
 	"wulacms/core": "*",
 	"wulacms/dashboard": "*",
+	"wulacms/model": "*",
+	"wulacms/page": "*",
 	"michelf/php-markdown": "^1.7"
   },
   "license": "MIT",
@@ -70,6 +72,14 @@
 	{
 	  "type": "git",
 	  "url": "https://github.com/ninggf/wulacms_module_dashboard.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_model.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_page.git"
 	},
 	{
 	  "type": "git",
