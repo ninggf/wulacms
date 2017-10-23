@@ -4,12 +4,12 @@
  */
 $config = new \wulaphp\conf\DatabaseConfiguration('default');
 $config->driver(env('db.driver', 'MySQL'));
-$config->host(env('db.host', 'localhost'));
-$config->port(env('db.port', '3306'));
-$config->dbname(env('db.name', ''));
-$config->encoding(env('db.charset', 'UTF8MB4'));
-$config->user(env('db.user', 'root'));
-$config->password(env('db.password', ''));
+$config->host(env('db.host', '{db.host}'));
+$config->port(env('db.port', '{db.port}'));
+$config->dbname(env('db.name', '{db.name}'));
+$config->encoding(env('db.charset', '{db.charset}'));
+$config->user(env('db.user', '{db.user}'));
+$config->password(env('db.password', '{db.password}'));
 $options = env('db.options', '');
 if ($options) {
 	$options = explode(',', $options);
@@ -26,3 +26,5 @@ if ($options) {
 	}
 	$config->options($dbops);
 }
+
+return $config;
