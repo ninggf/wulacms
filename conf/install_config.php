@@ -11,9 +11,11 @@
 return [
 	'debug'     => env('debug', DEBUG_WARN),
 	'dashboard' => env('dashboard', '{dashboard}'),
+	'domain'    => env('domain', '{domain}'),
+	'name'      => env('name', '{name}'),
 	'resource'  => [
 		'combinate' => env('resource.combinate', 1),
 		'minify'    => env('resource.minify', 1)
 	],
-	'modules'   => ['core', 'dashboard', 'media', 'model', 'page']
+	'modules'   => []
 ];
