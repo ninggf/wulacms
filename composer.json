@@ -17,6 +17,7 @@
 	"wula/ui": "*",
 	"wulacms/core": "*",
 	"wulacms/dashboard": "*",
+	"wulacms/site": "*",
 	"wulacms/model": "*",
 	"wulacms/page": "*",
 	"michelf/php-markdown": "^1.7"
@@ -72,6 +73,10 @@
 	{
 	  "type": "git",
 	  "url": "https://github.com/ninggf/wulacms_module_dashboard.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_site.git"
 	},
 	{
 	  "type": "git",
