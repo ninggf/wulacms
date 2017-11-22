@@ -11,6 +11,8 @@
 	"ext-curl": "*",
 	"ext-SPL": "*",
 	"ext-mysqlnd": "*",
+	"michelf/php-markdown": "^1.7",
+	"imagine/imagine": "^0.7.1",
 	"wula/wulaphp": "*",
 	"wula/curlient": "*",
 	"wula/cms-support": "*",
@@ -19,8 +21,7 @@
 	"wulacms/dashboard": "*",
 	"wulacms/site": "*",
 	"wulacms/model": "*",
-	"wulacms/page": "*",
-	"michelf/php-markdown": "^1.7"
+	"wulacms/page": "*"
   },
   "license": "MIT",
   "keywords": [

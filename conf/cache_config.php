@@ -1,8 +1,7 @@
 <?php
-/**
+/*
  * 缓存配置
  */
-
 $config = new \wulaphp\conf\CacheConfiguration();
 $config->enabled(env('cache.enabled', 0));
 $type = env('cache.type');
