@@ -19,9 +19,8 @@
 	"wula/ui": "*",
 	"wulacms/core": "*",
 	"wulacms/dashboard": "*",
-	"wulacms/site": "*",
-	"wulacms/model": "*",
-	"wulacms/page": "*"
+	"wulacms/media": "*",
+	"wulacms/cms": "*"
   },
   "license": "MIT",
   "keywords": [
@@ -77,15 +76,11 @@
 	},
 	{
 	  "type": "git",
-	  "url": "https://github.com/ninggf/wulacms_module_site.git"
+	  "url": "https://github.com/ninggf/wulacms_module_cms.git"
 	},
 	{
 	  "type": "git",
-	  "url": "https://github.com/ninggf/wulacms_module_model.git"
-	},
-	{
-	  "type": "git",
-	  "url": "https://github.com/ninggf/wulacms_module_page.git"
+	  "url": "https://github.com/ninggf/wulacms_module_media.git"
 	},
 	{
 	  "type": "git",
