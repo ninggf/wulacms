@@ -16,10 +16,9 @@
 	"wula/wulaphp": "*",
 	"wula/curlient": "*",
 	"wula/cms-support": "*",
-	"wula/ui": "*",
-	"wulacms/core": "*",
-	"wulacms/dashboard": "*",
-	"wulacms/media": "*",
+	"wula/jqadmin": "*",
+	"wulacms/backend": "*",
+	"wulacms/system": "*",
 	"wulacms/cms": "*"
   },
   "license": "MIT",
@@ -35,9 +34,10 @@
   },
   "type": "project",
   "config": {
-	"preferred-install": "dist"
+	"preferred-install": "dist",
+	"optimize-autoloader": true,
+	"classmap-authoritative": true
   },
-  "optimize-autoloader": true,
   "authors": [
 	{
 	  "name": "Leo Ning",
@@ -45,9 +45,6 @@
 	}
   ],
   "extra": {
-	"wula": {
-	  "assets-dir": "vendor"
-	},
 	"branch-alias": {
 	  "dev-master": "1.0-dev"
 	}
@@ -68,23 +65,19 @@
 	},
 	{
 	  "type": "git",
-	  "url": "https://github.com/ninggf/wulacms_module_core.git"
-	},
-	{
-	  "type": "git",
-	  "url": "https://github.com/ninggf/wulacms_module_dashboard.git"
-	},
-	{
-	  "type": "git",
 	  "url": "https://github.com/ninggf/wulacms_module_cms.git"
 	},
 	{
 	  "type": "git",
-	  "url": "https://github.com/ninggf/wulacms_module_media.git"
+	  "url": "https://github.com/ninggf/wula_assets_jqadmin.git"
 	},
 	{
 	  "type": "git",
-	  "url": "https://github.com/ninggf/wulaui.git"
+	  "url": "https://github.com/ninggf/wulacms_module_backend.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_system.git"
 	},
 	{
 	  "type": "git",
