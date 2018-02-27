@@ -13,6 +13,7 @@
 	"ext-mysqlnd": "*",
 	"michelf/php-markdown": "^1.7",
 	"imagine/imagine": "^0.7.1",
+	"wula/wula-installer": "^1.0",
 	"wula/wulaphp": "^1.9.0",
 	"wula/curlient": "^1.0.0",
 	"wula/cms-support": "^1.0.0",
