@@ -18,8 +18,7 @@
 	"wula/cms-support": "*",
 	"wula/jqadmin": "*",
 	"wulacms/backend": "*",
-	"wulacms/system": "*",
-	"wulacms/cms": "*"
+	"wulacms/system": "*"
   },
   "license": "MIT",
   "keywords": [
@@ -86,6 +85,10 @@
 	{
 	  "type": "git",
 	  "url": "https://github.com/ninggf/wula-common.git"
+	},
+	{
+	  "type":"git",
+	  "url":"https://github.com/ninggf/wulacms_module_wechat.git"
 	}
   ]
 }
