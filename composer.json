@@ -13,6 +13,7 @@
 	"ext-mysqlnd": "*",
 	"michelf/php-markdown": "^1.7",
 	"imagine/imagine": "^0.7.1",
+	"wula/wula-installer": "^1.0",
 	"wula/wulaphp": "*",
 	"wula/curlient": "*",
 	"wula/cms-support": "*",
@@ -87,8 +88,8 @@
 	  "url": "https://github.com/ninggf/wula-common.git"
 	},
 	{
-	  "type":"git",
-	  "url":"https://github.com/ninggf/wulacms_module_wechat.git"
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_wechat.git"
 	}
   ]
 }
