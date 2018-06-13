@@ -1,6 +1,6 @@
 <?php
 /*运行模式*/
-# define('APP_MODE', 'pro');
+define('APP_MODE', 'pro');
 /* 如果你的网站以集群的方式提供服务时，请取消下一行的注释，并配置cluster_config.php */
 # define('RUN_IN_CLUSTER', true);
 /* 如果你的应用不是运行在网站的根目录,请取消下一行注释并修改其值,必须以/开始,以/结束。*/
@@ -20,7 +20,7 @@
 /* 如果你想改libs目录名，请取消下一行注释并修改其值. */
 # define ('LIBS_DIR', 'includes' );
 /* 是否开启gzip压缩 */
-# define('GZIP_ENABLED', true);
+define('GZIP_ENABLED', true);
 /* 是否开启防雪崩机制 */
 # define('ANTI_AVALANCHE', true);
 /* 是否开启防CC机制（访问次数/每多少秒），需要在ccredis_config.php配置redis支持 */
