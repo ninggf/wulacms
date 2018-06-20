@@ -1,4 +1,4 @@
 User-agent: *
-Disallow: /modules
-Disallow: /themes
+Disallow: /assets
 Disallow: /index.php
+Disallow: /crossdomain.xml
