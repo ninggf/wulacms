@@ -16,19 +16,17 @@
 	"wula/cms-support": "*",
 	"wula/jqadmin": "v2.0.x-dev",
 	"wulacms/backend": "v2.0.x-dev",
-	"wulacms/system": "v2.0.x-dev"
+	"wulacms/system": "v2.0.x-dev",
+	"wulacms/media": "v2.0.x-dev",
+	"wulacms/rest": "v2.0.x-dev",
+	"wulacms/cms": "v2.0.x-dev"
   },
   "license": "MIT",
   "keywords": [
 	"CMF",
 	"CMS"
   ],
-  "time": "2016-12-07",
-  "scripts": {
-	"post-create-project-cmd": [
-	  "php artisan init"
-	]
-  },
+  "time": "2018-06-20",
   "type": "project",
   "config": {
 	"preferred-install": "dist",
@@ -74,7 +72,15 @@
 	},
 	{
 	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_media.git"
+	},
+	{
+	  "type": "git",
 	  "url": "https://github.com/ninggf/wulacms_module_system.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_rest.git"
 	},
 	{
 	  "type": "git",

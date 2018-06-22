@@ -1,5 +1,6 @@
-ide-code-style.xml export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
 test/ export-ignore
-phpunit.xml export-ignore
+tests/ export-ignore
 
 composer.json merge=ours
