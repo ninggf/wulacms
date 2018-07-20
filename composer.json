@@ -11,13 +11,15 @@
 	"ext-curl": "*",
 	"ext-SPL": "*",
 	"ext-mysqlnd": "*",
-	"wula/wulaphp": "^2.0",
-	"wula/cms-support": "^1.0",
-	"wula/jqadmin": "^2.0",
-	"wulacms/backend": "^2.0",
-	"wulacms/system": "^2.0",
-	"wulacms/media": "^2.0",
-	"wulacms/rest": "^2.0"
+	"wula/wulaphp": "v2.0.0.x-dev",
+	"wula/curlient": "*",
+	"wula/cms-support": "*",
+	"wula/jqadmin": "v2.0.x-dev",
+	"wulacms/backend": "v2.0.x-dev",
+	"wulacms/system": "v2.0.x-dev",
+	"wulacms/media": "v2.0.x-dev",
+	"wulacms/rest": "v2.0.x-dev",
+	"wulacms/cms": "v2.0.x-dev"
   },
   "license": "MIT",
   "keywords": [
@@ -39,11 +41,58 @@
   ],
   "extra": {
 	"branch-alias": {
-	  "dev-master": "2.0-dev"
+	  "dev-master": "1.0-dev"
 	}
   },
   "support": {
 	"issues": "https://github.com/ninggf/wulacms/issues"
   },
-  "homepage": "http://www.wulacms.com/"
+  "homepage": "http://www.wulacms.com/",
+  "minimum-stability": "dev",
+  "repositories": [
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulaphp.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_extension_cms.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_cms.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wula_assets_jqadmin.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_backend.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_media.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_system.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_rest.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/curlient.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wula-common.git"
+	},
+	{
+	  "type": "git",
+	  "url": "https://github.com/ninggf/wulacms_module_wechat.git"
+	}
+  ]
 }
