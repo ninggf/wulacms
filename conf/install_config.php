@@ -13,6 +13,7 @@ return [
 	'dashboard' => env('dashboard', '{dashboard}'),
 	'domain'    => env('domain', '{domain}'),
 	'name'      => env('name', '{name}'),
+	'brandName' => 'WulaCMS',
 	'resource'  => [
 		'combinate' => env('resource.combinate', 1),
 		'minify'    => env('resource.minify', 1)
