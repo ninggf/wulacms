@@ -19,6 +19,10 @@
 	"wulacms/media": "^2.0",
 	"wulacms/rest": "^2.0"
   },
+  "suggest": {
+	"ext-posix": "*",
+	"ext-pcntl": "*"
+  },
   "license": "MIT",
   "keywords": [
 	"CMF",

@@ -26,18 +26,23 @@ foreach (apply_filter('artisan\getCommands', []) as $key => $cmd) {
 		$commands[ $key ] = $cmd;
 	}
 }
-
-$commands['create:module']    = new \wulaphp\command\CreateModuleCommand();
-$commands['create:extension'] = new \wulaphp\command\CreateExtensionCommand();
-$commands['help']             = new \wulaphp\artisan\ArtisanHelpCommand();
+if (APP_MODE == 'dev') {
+	$commands['create:module']    = new \wulaphp\command\CreateModuleCommand();
+	$commands['create:extension'] = new \wulaphp\command\CreateExtensionCommand();
+}
 
 ksort($commands);
 
 set_time_limit(0);
 $cmd = isset($argv[1]) ? $argv[1] : 'help';
 
-if (!isset($commands[ $cmd ])) {
-	$commands['help']->help("Unknown Command: " . $cmd);
+if (!isset($commands[ $cmd ]) && $cmd != 'help') {
+	$cmdi = new \wulaphp\artisan\ArtisanHelpCommand();
+	$cmdi->help("Unknown Command: " . $cmd);
+} else if ($cmd == 'help') {
+	$cmdi = new \wulaphp\artisan\ArtisanHelpCommand();
+	exit($cmdi->run());
 } else {
 	exit($commands[ $cmd ]->run());
 }
+// end of artisan
