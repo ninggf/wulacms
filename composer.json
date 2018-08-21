@@ -20,8 +20,15 @@
 	"wulacms/rest": "^2.0"
   },
   "suggest": {
-	"ext-posix": "*",
-	"ext-pcntl": "*"
+	"ext-posix": "artisan script needs it",
+	"ext-pcntl": "artisan script needs it",
+	"ext-sockets": "artisan script needs it",
+	"ext-simplexml": "XmlView needs it",
+	"ext-gearman": "gearman service needs it",
+	"ext-redis": "lots of features need it ",
+	"ext-apcu": "for runtime cache",
+	"ext-yac": "for runtime cache",
+	"ext-memcached": "for cache"
   },
   "license": "MIT",
   "keywords": [
