@@ -1,6 +1,6 @@
 <?php
-/* 运行模式 */
-# define('APP_MODE', 'pro');
+/* 是否开启gzip压缩 */
+define('GZIP_ENABLED', true);
 /* 你可以配置系统的默认模块配置 */
 # define('DEFAULT_MODULE', 'app');
 /* 如果需要开启URL别名请取消下一行注释，并配置modules/alias.php */
@@ -29,8 +29,6 @@
 # define('ANTI_CC','10/60');
 /* 重新定义运行时内存限制 */
 # define ('RUNTIME_MEMORY_LIMIT', '128M' );
-/* 是否开启gzip压缩 */
-define('GZIP_ENABLED', true);
 // 以上配置选择性修改
 // //////////////////////////////////////////////////////////////////////////////
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!以下内容不可修改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -42,8 +40,11 @@ define('APPROOT', __DIR__ . DIRECTORY_SEPARATOR);
 # define('WULACMF_WEB_INSTALLER', 1);
 defined('PUBLIC_DIR') or define('PUBLIC_DIR', 'wwwroot');
 if (!defined('WWWROOT')) {
-	define('WWWROOT', APPROOT . PUBLIC_DIR . DIRECTORY_SEPARATOR);
+    define('WWWROOT', APPROOT . PUBLIC_DIR . DIRECTORY_SEPARATOR);
 }
-// 加载composer的autoload.
-require APPROOT . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+if (defined('PHPUNIT_COMPOSER_INSTALL')) {
+    require APPROOT . 'vendor' . DIRECTORY_SEPARATOR . 'wula/wulaphp/bootstrap.php';
+} else {
+    require APPROOT . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
+}
 // end of bootstrap.php

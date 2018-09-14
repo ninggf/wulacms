@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Internal Error!</title>
+    <meta charset="UTF-8">
+    <title>500 Internal Server Error</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         pre {
@@ -24,6 +25,12 @@
             width: 200px;
             margin: 5rem auto;
         }
+
+        .err {
+            color: red;
+            margin-top: -90px;
+            width: 600px;
+        }
     </style>
 </head>
 <body>
@@ -36,12 +43,12 @@
   `-..__.-' _.-\###/
         `;_:    `"'
       .'"""""`.
-     /,  ya ,\\
+     //, ya ,\\
     //  500!  \\
     `-._______.-'
     ___`. | .'___
    (______|______)
 </pre>
-<div class="page-404" style="color: red;margin-top: -90px;">&nbsp;{$message}</div>
+<div class="page-404 err">{$message}</div>
 </body>
 </html>

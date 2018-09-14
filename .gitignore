@@ -5,6 +5,7 @@
 .idea
 *.log
 .vscode
+.phpunit.*
 dummy.php
 conf/*_dev.php
 .DS_Store
@@ -22,3 +23,4 @@ install.lock
 extensions/
 modules/
 themes/
+docker-compose.yml

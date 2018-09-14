@@ -9,14 +9,14 @@
  * file that was distributed with this source code.
  */
 return [
-	'debug'     => env('debug', DEBUG_WARN),
-	'dashboard' => env('dashboard', '{dashboard}'),
-	'domain'    => env('domain', '{domain}'),
-	'name'      => env('name', '{name}'),
-	'brandName' => 'WulaCMS',
-	'resource'  => [
-		'combinate' => env('resource.combinate', 1),
-		'minify'    => env('resource.minify', 1)
-	],
-	'modules'   => ['media', 'rest']
+    'debug'     => env('debug', DEBUG_WARN),
+    'dashboard' => env('dashboard', '{dashboard}'),
+    'domain'    => env('domain', '{domain}'),
+    'name'      => env('name', '{name}'),
+    'brandName' => 'WulaCMS',
+    'resource'  => [
+        'combinate' => env('resource.combinate', 1),
+        'minify'    => env('resource.minify', 1)
+    ],
+    'modules'   => ['media', 'rest']
 ];
