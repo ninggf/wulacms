@@ -25,12 +25,13 @@ services:
     expose:
     - "9000"
     environment:
-      XDEBUG_REMOTE_HOST: 172.16.100.200 #请换成你本机的IP(注不是container的IP哦)
+      XDEBUG_REMOTE_HOST: 192.168.0.100 #请换成你本机的IP(注不是container的IP哦)
       XDEBUG_REMOTE_PORT: 9000
       XDEBUG_ENABLE: 0
     links:
     - "db"
     - "redis"
+    - "memcached"
   db:
     container_name: wula_db
     image: mysql:5.7.23
@@ -47,3 +48,8 @@ services:
     - "6379"
     sysctls:
       net.core.somaxconn: 1024
+  memcached:
+    container_name: wula_memcached
+    image: memcached:1.5.10
+    expose:
+    - "11211"

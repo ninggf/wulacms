@@ -14,9 +14,10 @@ return [
     'domain'    => env('domain', '{domain}'),
     'name'      => env('name', '{name}'),
     'brandName' => 'WulaCMS',
+    'brandImg'  => '',
     'resource'  => [
-        'combinate' => env('resource.combinate', 1),
-        'minify'    => env('resource.minify', 1)
+        'combinate' => env('resource.combinate', 0),
+        'minify'    => env('resource.minify', 0)
     ],
     'modules'   => ['media', 'rest']
 ];

@@ -2,7 +2,7 @@
     "name": "wula/wulacms",
     "description": "我们努力做一个比较优秀的内容管理框架(CMF)，争取让她像异星战场中的乌拉一样快",
     "require": {
-        "php": ">=7.1",
+        "php": ">= 7.1",
         "ext-json": "*",
         "ext-pdo": "*",
         "ext-pdo_mysql": "*",
@@ -19,16 +19,19 @@
         "wulacms/media": "^2.0",
         "wulacms/rest": "^2.0"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^7.3"
+    },
     "suggest": {
-        "ext-posix": "artisan script needs it",
-        "ext-pcntl": "artisan script needs it",
-        "ext-sockets": "artisan script needs it",
-        "ext-simplexml": "XmlView needs it",
-        "ext-gearman": "gearman service needs it",
-        "ext-redis": "lots of features need it ",
-        "ext-apcu": "for runtime cache",
-        "ext-yac": "for runtime cache",
-        "ext-memcached": "for cache"
+        "ext-posix": "*",
+        "ext-pcntl": "*",
+        "ext-sockets": "*",
+        "ext-simplexml": "*",
+        "ext-gearman": "*",
+        "ext-redis": "*",
+        "ext-apcu": "*",
+        "ext-yac": "*",
+        "ext-memcached": "*"
     },
     "license": "MIT",
     "keywords": [
