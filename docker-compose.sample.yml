@@ -1,7 +1,7 @@
 version: "3"
 services:
   web:
-    container_name: wula_web
+    container_name: wulacms_web
     depends_on:
     - php
     image: nginx:latest
@@ -14,7 +14,7 @@ services:
     links:
     - "php"
   php:
-    container_name: wula_php
+    container_name: wulacms_php
     depends_on:
     - "db"
     - "redis"
@@ -33,7 +33,7 @@ services:
     - "redis"
     - "memcached"
   db:
-    container_name: wula_db
+    container_name: wulacms_db
     image: mysql:5.7.23
     expose:
     - "3306"
@@ -42,14 +42,14 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: 888888
   redis:
-    container_name: wula_redis
+    container_name: wulacms_redis
     image: redis:4.0.11
     expose:
     - "6379"
     sysctls:
       net.core.somaxconn: 1024
   memcached:
-    container_name: wula_memcached
+    container_name: wulacms_memcached
     image: memcached:1.5.10
     expose:
     - "11211"
