@@ -16,6 +16,7 @@ composer.lock
 tmp/
 # wulaphp
 test.php
+test*.php
 conf/config.php
 conf/dbconfig.php
 install.lock
@@ -23,4 +24,7 @@ install.lock
 extensions/
 modules/
 themes/
+storage/
+wwwroot/assets/jqadmin/
 docker-compose.yml
+docker-compose.yaml
