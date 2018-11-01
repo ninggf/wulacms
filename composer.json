@@ -11,7 +11,7 @@
         "ext-curl": "*",
         "ext-SPL": "*",
         "ext-mysqlnd": "*",
-        "wula/wulaphp": "^2.5",
+        "wula/wulaphp": ">= 2.5",
         "wula/cms-support": "^1.0",
         "wula/jqadmin": "^2.0",
         "wulacms/backend": "^2.0",
