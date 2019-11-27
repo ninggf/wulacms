@@ -38,6 +38,11 @@ if ($cmd == '-v') {
     $cmdi = new \wulaphp\artisan\ArtisanHelpCommand();
     exit($cmdi->run());
 } else if (!isset($commands[ $cmd ])) {
+    $script = APPROOT . $cmd;
+    if (is_file($script)) {
+        $exit = include $script;
+        exit($exit === 1 ? 0 : $exit);
+    }
     $cmdi = new \wulaphp\artisan\ArtisanHelpCommand();
     if ($cmd{0} == '-') {
         $cmdi->help("Unknown Option: " . $cmd);
