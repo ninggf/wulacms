@@ -2,19 +2,18 @@
     "name": "wula/wulacms",
     "description": "我们努力做一个比较优秀的内容管理框架(CMF)，争取让她像异星战场中的乌拉一样快",
     "require": {
-        "php": ">=7.1",
+        "php": ">= 7.1",
         "ext-json": "*",
-        "ext-PDO": "*",
-        "ext-pdo_mysql": "*",
-        "ext-mbstring": "*",
         "ext-curl": "*",
+        "ext-mbstring": "*",
         "ext-gd": "*",
-        "ext-SPL": "*",
         "ext-pcre": "*",
         "ext-session": "*",
         "ext-mysqlnd": "*",
+        "ext-pdo_mysql": "*",
+        "ext-SPL": "*",
         "ext-Reflection": "*",
-        "wula/wulaphp": "^2.5",
+        "wula/wulaphp": "^3.4",
         "wula/cms-support": "^2.0",
         "wula/jqadmin": "^2.3",
         "wulacms/backend": "^2.3",
@@ -23,16 +22,9 @@
         "wulacms/rest": "^2.2"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.3"
+        "phpunit/phpunit": "^7.5"
     },
     "suggest": {
-        "ext-posix": "*",
-        "ext-pcntl": "*",
-        "ext-sockets": "*",
-        "ext-SimpleXML": "*",
-        "ext-gearman": "*",
-        "ext-redis": "*",
-        "ext-apcu": "*",
         "ext-yac": "*",
         "ext-memcached": "*"
     },
@@ -57,7 +49,7 @@
     ],
     "extra": {
         "branch-alias": {
-            "dev-master": "2.0-dev"
+            "dev-master": "3.0-dev"
         }
     },
     "support": {
