@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         stopOnFailure="false"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false">
+
+    <testsuites>
+        <testsuite name="test">
+            <directory suffix="Test.php">./</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../modules/**/</directory>
+            <exclude>
+                <file>../modules/**/bootstrap.php</file>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="junit" target="../storage/report/result.xml"/>
+        <log type="testdox-html" target="../storage/report/testdox.html"/>
+        <!-- <log type="coverage-clover" target="../storage/report/coverage.xml"/> -->
+    </logging>
+</phpunit>
