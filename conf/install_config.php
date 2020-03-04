@@ -19,5 +19,5 @@ return [
         'combinate' => env('resource.combinate', 0),
         'minify'    => env('resource.minify', 0)
     ],
-    'modules'   => ['media', 'rest']
+    'modules'   => []
 ];

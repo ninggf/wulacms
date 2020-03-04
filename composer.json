@@ -13,13 +13,9 @@
         "ext-pdo_mysql": "*",
         "ext-SPL": "*",
         "ext-Reflection": "*",
-        "wula/wulaphp": "^3.4",
+        "wula/wulaphp": "^3.5",
         "wula/cms-support": "^2.0",
-        "wula/jqadmin": "^2.3",
-        "wulacms/backend": "^2.3",
-        "wulacms/system": "^2.3",
-        "wulacms/media": "^2.2",
-        "wulacms/rest": "^2.2"
+        "wulacms/system": "^3.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^7.5"
