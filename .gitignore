@@ -28,5 +28,6 @@ package-lock.json
 /storage/
 node_modules/
 /wwwroot/assets/jqadmin/
+/wwwroot/assets/trumbowyg/
 docker-compose.yml
 docker-compose.yaml
