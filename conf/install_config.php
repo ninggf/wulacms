@@ -9,11 +9,14 @@
  * file that was distributed with this source code.
  */
 return [
-    'debug'    => env('debug', DEBUG_WARN),
-    'alias'    => ['{alias}'],
-    'resource' => [
+    'debug'     => env('debug', DEBUG_WARN),
+    'domain'    => '{domain}',
+    'alias'     => ['{alias}'],
+    'brandName' => '',
+    'brandImg'  => '',
+    'resource'  => [
         'combinate' => env('resource.combinate', 0),
         'minify'    => env('resource.minify', 0)
     ],
-    'modules'  => []
+    'modules'   => []
 ];
