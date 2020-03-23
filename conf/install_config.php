@@ -12,7 +12,7 @@ return [
     'debug'     => env('debug', DEBUG_WARN),
     'domain'    => '{domain}',
     'alias'     => ['{alias}'],
-    'brandName' => '',
+    'brandName' => 'WulaCms',
     'brandImg'  => '',
     'resource'  => [
         'combinate' => env('resource.combinate', 0),
