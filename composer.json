@@ -1,6 +1,6 @@
 {
     "name": "wula/wulacms",
-    "description": "我们努力做一个比较优秀的内容管理框架(CMF)，争取让她像异星战场中的乌拉一样快",
+    "description": "a content manager system powered by wulaphp.",
     "require": {
         "php": ">= 7.1",
         "ext-json": "*",
@@ -28,7 +28,10 @@
     "keywords": [
         "CMF",
         "CMS",
-        "wulaphp"
+        "wulaphp",
+        "php",
+        "adminui",
+        "vue"
     ],
     "time": "2018-06-20",
     "type": "project",
