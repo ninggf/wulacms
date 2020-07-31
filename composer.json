@@ -13,7 +13,7 @@
         "ext-pdo_mysql": "*",
         "ext-SPL": "*",
         "ext-Reflection": "*",
-        "wula/wulaphp": "^3.5",
+        "wula/wulaphp": "^3.6",
         "wula/cms-support": "^3.0",
         "wulacms/system": "^3.0"
     },
