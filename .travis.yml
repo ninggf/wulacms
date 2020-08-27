@@ -14,12 +14,11 @@ addons:
 php:
 - 7.1
 - 7.2
-- nightly
+- 7.3
+- 7.4
 
 matrix:
   fast_finish: true
-  allow_failures:
-  - php: nightly
 
 before_install:
 # disable xdebug if available
@@ -37,7 +36,7 @@ install:
 script:
 - ./artisan admin create-module testm
 - ./artisan admin create-ext -b myext
-- ls -d tests/**/* | parallel --gnu --keep-order 'echo "Running {} tests"; ./vendor/bin/phpunit -c tests/phpunit.xml --colors=always {} || (echo -e "\e[41mFAILED\e[0m {}" && exit 1);'
+- ls -d tests/**/* | parallel --gnu --keep-order 'echo "Running {} tests"; ./vendor/bin/phpunit -c tests/phpunit.xml.dist --colors=always {} || (echo -e "\e[41mFAILED\e[0m {}" && exit 1);'
 
 before_deploy:
 - rm -rf modules/testm extensions/myext storage/report storage/tmp/* storage/logs/*
@@ -57,6 +56,6 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    branch: v2.0.0
+    branch: v3.0
     repo: ninggf/wulacms
-    php:  '7.1'
+    php:  '7.4'
