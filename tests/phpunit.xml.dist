@@ -10,23 +10,29 @@
          processIsolation="false">
 
     <testsuites>
-        <testsuite name="test">
+        <testsuite name="Test Suite One">
             <directory suffix="Test.php">./</directory>
         </testsuite>
     </testsuites>
 
+    <groups>
+        <exclude>
+            <!--<group>demo</group>-->
+        </exclude>
+    </groups>
+
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">../modules/**/</directory>
+        <!--<whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">../modules/</directory>
             <exclude>
-                <file>../modules/**/bootstrap.php</file>
             </exclude>
-        </whitelist>
+        </whitelist>-->
     </filter>
 
     <logging>
         <log type="junit" target="../storage/report/result.xml"/>
         <log type="testdox-html" target="../storage/report/testdox.html"/>
-        <!-- <log type="coverage-clover" target="../storage/report/coverage.xml"/> -->
+        <!--<log type="coverage-clover" target="../storage/report/coverage.xml"/>-->
     </logging>
+
 </phpunit>
