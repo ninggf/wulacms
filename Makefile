@@ -1,8 +1,8 @@
-DST_IMG_TAG = app
+DST_IMG_TAG = wulacms
 APP_VER     = 1.0.0
 REG_HOST    = localhost:5000
 
-app_files = conf crontab dbbeats modules extensions themes vendor wwwroot artisan bootstrap.php
+app_files = conf crontab modules extensions includes themes vendor wwwroot artisan bootstrap.php
 
 DOC_RUN   = docker-compose -f tests/docker-compose.yml
 
@@ -37,10 +37,6 @@ tartest:
 install:tag
 	docker push "${REG_HOST}/${DST_IMG_TAG}:${APP_VER}-app"
 	docker push "${REG_HOST}/${DST_IMG_TAG}:${APP_VER}-svc"
-
-svn:
-	@echo 'update svn...'
-	@svn up
 
 testimg:cleantest tartest
 	docker build --build-arg APP_VER="unittest" -t "${DST_IMG_TAG}:unittest" -f docker/Dockerfile docker/
