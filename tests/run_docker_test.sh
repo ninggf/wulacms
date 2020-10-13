@@ -1,10 +1,21 @@
-# prepare data for unit test
+#!/usr/bin/env sh
 
-rm conf/install.lock conf/config.php conf/dbconfig.php
+cnt=0
+echo "waiting database ..."
+while [ $cnt -le 60 ] ; do
+    dbok=$(php -r "try{new PDO('mysql:dbname=mysql;host=mysql','root','888888');echo 'ok';}catch(Exception \$e){echo \$e->getMessage();}")
+    if [ "$dbok" = "ok" ]; then
+        break
+    fi
+    sleep 1
+    cnt=$(( cnt+1 ))
+done
 
-sleep 15 # wait db to startup
-
-php ./artisan wulacms:install -c tests/install.ini
-
-php ./vendor/bin/phpunit --prepend ./bootstrap.php -c tests/phpunit.xml.dist --colors=always --testdox\
- --testdox-text ./storage/reports/testdox.txt --testsuite all
+if [ $cnt -le 60 ]; then
+    echo "database is ready!"
+    echo ""
+    php ./vendor/bin/phpunit --prepend ./bootstrap.php -c tests/phpunit.xml.dist --colors=always --testdox
+else
+    echo "Could not connect to the database server!"
+    exit 1
+fi
