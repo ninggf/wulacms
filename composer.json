@@ -2,7 +2,7 @@
     "name": "wula/wulacms",
     "description": "a content manager system powered by wulaphp.",
     "require": {
-        "php": ">= 7.1",
+        "php": ">= 7.2",
         "ext-json": "*",
         "ext-curl": "*",
         "ext-mbstring": "*",
@@ -13,16 +13,14 @@
         "ext-pdo_mysql": "*",
         "ext-SPL": "*",
         "ext-Reflection": "*",
-        "wula/wulaphp": "^3.7",
-        "wula/cms-support": "^3.0",
+        "wula/wulaphp": "^3.8",
         "wulacms/system": "^3.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.5"
+        "phpunit/phpunit": "^8.5"
     },
     "suggest": {
-        "ext-yac": "*",
-        "ext-memcached": "*"
+        "ext-yac": "*"
     },
     "license": "MIT",
     "keywords": [
@@ -54,5 +52,5 @@
     "support": {
         "issues": "https://github.com/ninggf/wulacms/issues"
     },
-    "homepages": "http://www.wulacms.com/"
+    "homepages": "https://www.wulacms.com/"
 }

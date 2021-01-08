@@ -1,0 +1,63 @@
+{
+    "name": "wulacms",
+    "version": "3.0.0",
+    "description": "a conent manager system powered by wulaphp.",
+    "scripts": {
+        "layui": "gulp layui --env=pro",
+        "build": "gulp",
+        "publish": "gulp --env=pro",
+        "watch": "gulp watch"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ninggf/wulacms.git"
+    },
+    "keywords": [
+        "admin",
+        "layui",
+        "backend",
+        "dashboard",
+        "php",
+        "ui",
+        "cms",
+        "vue",
+        "vuejs"
+    ],
+    "author": "ningGf",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/ninggf/wulacms/issues"
+    },
+    "homepage": "https://github.com/ninggf/wulacms",
+    "devDependencies": {
+        "@babel/core": "^7.8.7",
+        "@babel/plugin-proposal-class-properties": "^7.10.4",
+        "@babel/polyfill": "^7.8.7",
+        "@babel/preset-env": "^7.8.7",
+        "@gulp-sourcemaps/identity-map": "^2.0.1",
+        "autoprefixer": "^9.7.4",
+        "eslint": "^6.8.0",
+        "eslint-config-google": "^0.14.0",
+        "gulp": "^4.0",
+        "gulp-babel": "^8.0.0",
+        "gulp-clean-css": "^4.2.0",
+        "gulp-connect": "^5.7.0",
+        "gulp-header": "^2.0.9",
+        "gulp-jsvalidate": "^4.0.0",
+        "gulp-less": "^4.0.1",
+        "gulp-notify": "^3.2.0",
+        "gulp-open": "^3.0.1",
+        "gulp-postcss": "^8.0.0",
+        "gulp-remove-logging": "^1.2.0",
+        "gulp-rename": "^1.4.0",
+        "gulp-replace": "^1.0.0",
+        "gulp-rimraf": "^1.0.0",
+        "gulp-sourcemaps": "^2.6.5",
+        "gulp-uglify": "^3.0.2",
+        "less": "^3.11.1",
+        "minimist": "^1.2.4",
+        "postcss-pxtorem": "^4.0.1",
+        "wrench": "^1.5.9"
+    },
+    "dependencies": {}
+}

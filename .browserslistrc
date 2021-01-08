@@ -1,0 +1,10 @@
+# Browsers that we support
+[production]
+> 0.5%
+not dead
+edge >= 15
+chrome >= 63
+firefox esr
+ie >= 9
+iOS >= 9
+Android >= 4.1

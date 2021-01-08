@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 return [
-    'debug'     => env('debug', DEBUG_WARN),
+    'debug'     => env('app.debug.level', 'warn'),
     'domain'    => '{domain}',
     'alias'     => ['{alias}'],
     'brandName' => 'WulaCms',

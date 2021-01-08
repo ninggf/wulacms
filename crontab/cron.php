@@ -1,8 +1,13 @@
 #!/usr/bin/env php
 <?php
 /**
-* CRONTAB SCRIPT.
-*/
+ * CRONTAB SCRIPT.
+ */
 require __DIR__ . '/../bootstrap.php';
-fire('crontab', time());
+
+try {
+    fire('crontab', time());
+} catch (Exception $e) {
+    log_warn($e->getMessage(), 'crontab');
+}
 //that's all.

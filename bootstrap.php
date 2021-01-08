@@ -34,11 +34,10 @@ define('GZIP_ENABLED', true);
 // //////////////////////////////////////////////////////////////////////////////
 // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!以下内容不可修改!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 // //////////////////////////////////////////////////////////////////////////////
-# define('EXTENSION_LOADER_CLASS', 'wulaphp\app\ExtensionLoader');
-define('CONFIG_LOADER_CLASS', 'wula\cms\CmfConfigurationLoader');
-define('MODULE_LOADER_CLASS', 'wula\cms\CmfModuleLoader');
+define('CONFIG_LOADER_CLASS', 'wulaphp\cmf\CmfConfigurationLoader');
+define('MODULE_LOADER_CLASS', 'wulaphp\cmf\CmfModuleLoader');
 define('APPROOT', __DIR__ . DIRECTORY_SEPARATOR);
-define('WULACMF_WEB_INSTALLER', 1);
+
 defined('PUBLIC_DIR') or define('PUBLIC_DIR', 'wwwroot');
 if (!defined('WWWROOT')) {
     define('WWWROOT', APPROOT . PUBLIC_DIR . DIRECTORY_SEPARATOR);
