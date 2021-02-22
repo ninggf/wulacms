@@ -99,8 +99,6 @@ const getModules = cb => {
     })
 }
 
-console.log(options)
-
 const cmt            = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> License By <%= pkg.homepage %> */' + os.EOL + ' <%= js %>',
       note           = [cmt, {
           pkg: pkg,
@@ -208,8 +206,12 @@ const compileVue = function () {
 };
 
 const cleanTask = (cb, m) => {
-    src([pathName('assets/js/*', m), pathName('assets/css/*', m)], {
-        read      : true,
+    src([
+        pathName('assets/js/*', m),
+        pathName('assets/css/*', m),
+        pathName('assets/addon/*', m),
+        pathName('assets/admin.css', m),
+    ], {
         allowEmpty: true
     }).pipe(clean())
 
@@ -225,7 +227,9 @@ const buildJs = (cb, m) => {
         gp = gp.pipe(sourceMap.init()).pipe(identityMap());
     }
 
-    gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets')).pipe(babel(babelRc)).on('error', (e) => {
+    gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
+    .pipe(replace('$@', baseURL + 'modules/'))
+    .pipe(babel(babelRc)).on('error', (e) => {
         console.error(e.message)
         notify.onError(e.message)
     }).pipe(validate()).on('error', (e) => {
@@ -255,8 +259,30 @@ const buildJs = (cb, m) => {
     cb();
 }
 
+const buildAddonJs = (cb) => {
+    let gp = src([pathName('/src/addon/*.js', 'backend'), pathName('/src/addon/**/*.js', 'backend')], {
+        allowEmpty: true
+    })
+
+    if (options.env === 'pro') {
+        gp = gp.pipe(uglify()).on('error', (e) => {
+            notify.onError(e.message)
+            console.error(['js', e.message, e])
+        }).pipe(header.apply(null, note))
+    }
+
+    gp = gp.pipe(dest(pathName('/assets/addon', 'backend')))
+
+    if (options.watch) {
+        gp.pipe(connect.reload());
+    }
+
+    cb();
+}
+
 const buildCss = (cb, m) => {
     console.log('build css for ' + m)
+
     let gp = src([pathName('/src/less/[^_]*.less', m)], {
         allowEmpty: true
     })
@@ -265,7 +291,9 @@ const buildCss = (cb, m) => {
         gp = gp.pipe(sourceMap.init()).pipe(identityMap());
     }
 
-    gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets')).pipe(less()).on('error', e => {
+    gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
+    .pipe(replace('$@', baseURL + 'modules/'))
+    .pipe(less()).on('error', e => {
         console.error(e.message)
     })
     .pipe(postcss([pxtorem({
@@ -277,12 +305,46 @@ const buildCss = (cb, m) => {
 
     // write sourcemap
     if (options.env !== 'pro') {
-        gp = gp.pipe(sourceMap.write())
+        gp = gp.pipe(sourceMap.write(''))
     }
     if (options.env === 'pro') {
         gp = gp.pipe(cleancss()).pipe(header.apply(null, noteCss))
     }
     gp = gp.pipe(dest(pathName('/assets/css', m)));
+
+    if (options.watch) {
+        gp.pipe(connect.reload());
+    }
+
+    cb();
+}
+
+const buildAdminCss = (cb) => {
+    let gp = src([pathName('/src/css/*.css', 'backend')], {
+        allowEmpty: true
+    })
+
+    if (options.env === 'pro') {
+        gp = gp.pipe(cleancss()).pipe(header.apply(null, noteCss))
+    }
+    gp = gp.pipe(dest(pathName('/assets', 'backend')));
+
+    if (options.watch) {
+        gp.pipe(connect.reload());
+    }
+
+    cb();
+}
+
+const buildAddonCss = (cb) => {
+    let gp = src([pathName('/src/addon/**/*.css', 'backend')], {
+        allowEmpty: true
+    })
+
+    if (options.env === 'pro') {
+        gp = gp.pipe(cleancss()).pipe(header.apply(null, noteCss))
+    }
+    gp = gp.pipe(dest(pathName('/assets/addon', 'backend')));
 
     if (options.watch) {
         gp.pipe(connect.reload());
@@ -298,7 +360,9 @@ const buildVue = (cb, f) => {
     if (options.env !== 'pro') {
         gp = gp.pipe(sourceMap.init()).pipe(identityMap());
     }
-    gp = gp.pipe(replace('$~', baseURL + 'modules/' + f + '/assets')).pipe(compileVue())
+    gp = gp.pipe(replace('$~', baseURL + 'modules/' + f + '/assets'))
+    .pipe(replace('$@', baseURL + 'modules/'))
+    .pipe(compileVue())
     .pipe(babel(babelRc)).on('error', (e) => {
         console.error(e.message);
         notify.onError(e.message)
@@ -335,6 +399,17 @@ const watching = (cb, f) => {
     watch([pathName('/src/less/[^_]*.less', f)], cb => {
         buildCss(cb, f)
     })
+    if (f === 'backend') {
+        watch(pathName('/src/css/*.css', f), cb => {
+            buildAdminCss(cb)
+        });
+        watch([pathName('/src/addon/**/*.js', f)], cb => {
+            buildAddonJs(cb)
+        })
+        watch([pathName('/src/addon/**/*.css', f)], cb => {
+            buildAddonCss(cb)
+        })
+    }
     cb()
 }
 
@@ -343,6 +418,11 @@ exports.default = series(getModules, cb => {
         buildCss(cb, f)
         buildJs(cb, f)
         buildVue(cb, f)
+        if (f === 'backend') {
+            buildAdminCss(cb)
+            buildAddonJs(cb)
+            buildAddonCss(cb)
+        }
     })
     cb();
 });
