@@ -24,7 +24,7 @@ tar:clean
   		echo 'please run "export APP_VER=xx.xx.xx" first!';\
 		exit 1;\
 	fi
-	tar -cjf "docker/app-${APP_VER}.tar.bz2" --exclude='.gi*' --exclude='.svn' --exclude='.DS_Store' ${app_files}
+	tar -cjf "docker/app-${APP_VER}.tar.bz2" --exclude='.gi*' --exclude='.svn' --exclude='src' --exclude='node_modules' --exclude='.DS_Store' ${app_files}
 
 install:tag
 	docker push "${REG_HOST}/${DST_IMG_TAG}:${APP_VER}-app"
@@ -32,7 +32,7 @@ install:tag
 
 test:
 	$(DOC_RUN) up -d
-	$(DOC_RUN) exec ${TEST_SVC_NAME} sh ./tests/run_docker_test.sh || echo 'Could not pass the unit test!'
+	$(DOC_RUN) exec ${TEST_SVC_NAME} sh ./tests/run_docker_test.sh || (echo 'Could not pass the unit test!' && exit(1))
 	$(DOC_RUN) down
 
 clean:
