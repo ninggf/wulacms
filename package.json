@@ -6,7 +6,8 @@
         "layui": "gulp layui --env=pro",
         "build": "gulp",
         "publish": "gulp --env=pro",
-        "watch": "gulp watch"
+        "watch": "gulp watch",
+        "clean": "gulp clean"
     },
     "repository": {
         "type": "git",

@@ -4,6 +4,7 @@
 .project
 .idea
 *.log
+*.map
 .vscode
 .phpunit.*
 dummy.php
@@ -27,7 +28,5 @@ package-lock.json
 /themes/
 /storage/
 node_modules/
-/wwwroot/assets/jqadmin/
-/wwwroot/assets/trumbowyg/
 docker-compose.yml
 docker-compose.yaml

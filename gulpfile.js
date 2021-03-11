@@ -207,9 +207,10 @@ const compileVue = function () {
 
 const cleanTask = (cb, m) => {
     src([
-        pathName('assets/js/*', m),
-        pathName('assets/css/*', m),
-        pathName('assets/addon/*', m),
+        pathName('assets/js', m),
+        pathName('assets/css', m),
+        pathName('assets/img', m),
+        pathName('assets/addon', m),
         pathName('assets/admin.css', m),
     ], {
         allowEmpty: true
@@ -217,9 +218,21 @@ const cleanTask = (cb, m) => {
 
     cb()
 }
+const copyImg   = (cb, m) => {
+    let gp = src([pathName('/src/img/**', m)], {
+        allowEmpty: true
+    })
+    gp     = gp.pipe(dest(pathName('/assets/img', m)))
+
+    if (options.watch) {
+        gp.pipe(connect.reload());
+    }
+
+    cb();
+};
 
 const buildJs = (cb, m) => {
-    let gp = src([pathName('/src/js/*.js', m)], {
+    let gp = src([pathName('/src/js/**/[^_]*.js', m)], {
         allowEmpty: true
     })
 
@@ -229,6 +242,7 @@ const buildJs = (cb, m) => {
 
     gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
     .pipe(replace('$@', baseURL + 'modules/'))
+    .pipe(replace('$!', baseURL + 'themes/'))
     .pipe(babel(babelRc)).on('error', (e) => {
         console.error(e.message)
         notify.onError(e.message)
@@ -293,6 +307,7 @@ const buildCss = (cb, m) => {
 
     gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
     .pipe(replace('$@', baseURL + 'modules/'))
+    .pipe(replace('$!', baseURL + 'themes/'))
     .pipe(less()).on('error', e => {
         console.error(e.message)
     })
@@ -305,7 +320,7 @@ const buildCss = (cb, m) => {
 
     // write sourcemap
     if (options.env !== 'pro') {
-        gp = gp.pipe(sourceMap.write(''))
+        gp = gp.pipe(sourceMap.write())
     }
     if (options.env === 'pro') {
         gp = gp.pipe(cleancss()).pipe(header.apply(null, noteCss))
@@ -362,6 +377,7 @@ const buildVue = (cb, f) => {
     }
     gp = gp.pipe(replace('$~', baseURL + 'modules/' + f + '/assets'))
     .pipe(replace('$@', baseURL + 'modules/'))
+    .pipe(replace('$!', baseURL + 'themes/'))
     .pipe(compileVue())
     .pipe(babel(babelRc)).on('error', (e) => {
         console.error(e.message);
@@ -418,14 +434,15 @@ exports.default = series(getModules, cb => {
         buildCss(cb, f)
         buildJs(cb, f)
         buildVue(cb, f)
+        copyImg(cb, f)
         if (f === 'backend') {
             buildAdminCss(cb)
             buildAddonJs(cb)
             buildAddonCss(cb)
         }
     })
-    cb();
-});
+    cb()
+})
 
 exports.build = exports.default
 
