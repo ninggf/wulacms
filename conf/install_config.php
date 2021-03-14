@@ -9,14 +9,10 @@
  * file that was distributed with this source code.
  */
 return [
-    'debug'     => env('app.debug.level', 'warn'),
-    'domain'    => '{domain}',
-    'alias'     => ['{alias}'],
-    'brandName' => 'WulaCms',
-    'brandImg'  => '',
-    'resource'  => [
+    'debug'    => env('app.debug.level', 'warn'),
+    'resource' => [
         'combinate' => env('resource.combinate', 0),
         'minify'    => env('resource.minify', 0)
     ],
-    'modules'   => []
+    'modules'  => ['system']
 ];
