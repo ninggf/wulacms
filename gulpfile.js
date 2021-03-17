@@ -23,7 +23,8 @@ const notify                               = require('gulp-notify')
 const header                               = require('gulp-header')
 const sourceMap                            = require('gulp-sourcemaps')
 const identityMap                          = require('@gulp-sourcemaps/identity-map')
-const replace                              = require('gulp-replace');
+const replace                              = require('gulp-replace')
+const include                              = require('gulp-include')
 let modules                                = []
 let babelRc                                = {
     "presets": [
@@ -239,8 +240,10 @@ const buildJs = (cb, m) => {
     if (options.env !== 'pro') {
         gp = gp.pipe(sourceMap.init()).pipe(identityMap());
     }
-
-    gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
+    if (options.env === 'pro') {
+        gp = gp.pipe(include())
+    }
+    gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
     .pipe(replace('$@', baseURL + 'modules/'))
     .pipe(replace('$!', baseURL + 'themes/'))
     .pipe(babel(babelRc)).on('error', (e) => {
