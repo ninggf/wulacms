@@ -17,7 +17,7 @@ const cleancss                             = require('gulp-clean-css')
 const minifyCSS                            = require('clean-css');
 const clean                                = require('gulp-rimraf')
 const uglify                               = require('gulp-uglify')
-const relogger                             = require('gulp-remove-logging')
+const relogger                             = require('gulp-strip-debug')
 const validate                             = require('gulp-jsvalidate')
 const notify                               = require('gulp-notify')
 const header                               = require('gulp-header')
@@ -210,20 +210,27 @@ const cleanTask = (cb, m) => {
     src([
         pathName('assets/js', m),
         pathName('assets/css', m),
+        pathName('assets/font', m),
         pathName('assets/img', m),
         pathName('assets/addon', m),
-        pathName('assets/admin.css', m),
     ], {
         allowEmpty: true
     }).pipe(clean())
 
     cb()
 }
-const copyImg   = (cb, m) => {
-    let gp = src([pathName('/src/img/**', m)], {
+
+const copyImg = (cb, m) => {
+    let gp = src([
+        pathName('/src/**/*.png', m),
+        pathName('/src/**/*.gif', m),
+        pathName('/src/**/*.jpeg', m),
+        pathName('/src/**/*.jpg', m),
+        pathName('/src/**/*.webp', m)
+    ], {
         allowEmpty: true
     })
-    gp     = gp.pipe(dest(pathName('/assets/img', m)))
+    gp     = gp.pipe(dest(pathName('/assets', m)))
 
     if (options.watch) {
         gp.pipe(connect.reload());
@@ -243,7 +250,7 @@ const buildJs = (cb, m) => {
     if (options.env === 'pro') {
         gp = gp.pipe(include())
     }
-    gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
+    gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
     .pipe(replace('$@', baseURL + 'modules/'))
     .pipe(replace('$!', baseURL + 'themes/'))
     .pipe(babel(babelRc)).on('error', (e) => {
@@ -255,9 +262,8 @@ const buildJs = (cb, m) => {
     })
 
     if (options.env === 'pro') {
-        gp = gp.pipe(relogger({
-            replaceWith: 'void 0'
-        })).pipe(uglify()).on('error', (e) => {
+        gp = gp.pipe(relogger())
+        .pipe(uglify()).on('error', (e) => {
             notify.onError(e.message)
             console.error(['js', e.message, e])
         }).pipe(header.apply(null, note))
@@ -282,7 +288,7 @@ const buildAddonJs = (cb) => {
     })
 
     if (options.env === 'pro') {
-        gp = gp.pipe(uglify()).on('error', (e) => {
+        gp = gp.pipe(relogger()).pipe(uglify()).on('error', (e) => {
             notify.onError(e.message)
             console.error(['js', e.message, e])
         }).pipe(header.apply(null, note))
@@ -338,14 +344,14 @@ const buildCss = (cb, m) => {
 }
 
 const buildAdminCss = (cb) => {
-    let gp = src([pathName('/src/css/*.css', 'backend')], {
+    let gp = src([pathName('/src/css/**/*.css', 'backend')], {
         allowEmpty: true
     })
 
     if (options.env === 'pro') {
         gp = gp.pipe(cleancss()).pipe(header.apply(null, noteCss))
     }
-    gp = gp.pipe(dest(pathName('/assets', 'backend')));
+    gp = gp.pipe(dest(pathName('/assets/css', 'backend')));
 
     if (options.watch) {
         gp.pipe(connect.reload());
@@ -371,6 +377,20 @@ const buildAddonCss = (cb) => {
     cb();
 }
 
+const copyAdminFont = (cb) => {
+    let gp = src([pathName('/src/font/**', 'backend')], {
+        allowEmpty: true
+    })
+
+    gp = gp.pipe(dest(pathName('/assets/font', 'backend')))
+
+    if (options.watch) {
+        gp.pipe(connect.reload());
+    }
+
+    cb();
+};
+
 const buildVue = (cb, f) => {
     let gp = src([pathName('/src/widget/*.vue', f)], {
         allowEmpty: true
@@ -392,9 +412,7 @@ const buildVue = (cb, f) => {
     });
 
     if (options.env === 'pro') {
-        gp = gp.pipe(relogger({
-            replaceWith: 'void 0'
-        })).pipe(uglify()).on('error', (e) => {
+        gp = gp.pipe(relogger()).pipe(uglify()).on('error', (e) => {
             notify.onError(e.message)
             console.error(['widget', e.message])
         }).pipe(header.apply(null, note))
@@ -442,6 +460,7 @@ exports.default = series(getModules, cb => {
             buildAdminCss(cb)
             buildAddonJs(cb)
             buildAddonCss(cb)
+            copyAdminFont(cb)
         }
     })
     cb()
