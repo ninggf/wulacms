@@ -1,6 +1,6 @@
 DST_IMG_TAG   = wula/app
 TEST_SVC_NAME = test
-HAS_SVC_TAG   = 1
+HAS_SVC_TAG   = 0
 app_files     = conf crontab modules extensions includes themes vendor wwwroot artisan bootstrap.php
 DOC_RUN       = docker-compose -f tests/docker-compose.yml
 
