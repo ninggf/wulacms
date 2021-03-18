@@ -9,13 +9,10 @@
  * file that was distributed with this source code.
  */
 return [
-	'debug'     => env('debug', DEBUG_WARN),
-	'dashboard' => env('dashboard', '{dashboard}'),
-	'domain'    => env('domain', '{domain}'),
-	'name'      => env('name', '{name}'),
-	'resource'  => [
-		'combinate' => env('resource.combinate', 1),
-		'minify'    => env('resource.minify', 1)
-	],
-	'modules'   => ['cms', 'media']
+    'debug'    => env('app.debug.level', 'warn'),
+    'resource' => [
+        'combinate' => env('resource.combinate', 0),
+        'minify'    => env('resource.minify', 0)
+    ],
+    'modules'  => ['system']
 ];

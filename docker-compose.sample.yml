@@ -1,0 +1,20 @@
+version: "3.1"
+
+services:
+  app:
+    image: wulaphp/php:7.4-dev
+    ports:
+      - 8808:80/tcp
+    volumes:
+      - "./:/var/www/html/"
+      - "./docker/etc/nginx/nginx.conf:/usr/local/etc/nginx/nginx.conf:ro"
+  mysql:
+    image: mysql:5.7.31
+    volumes:
+      - "./storage/mysql:/var/lib/mysql"
+    environment:
+      MYSQL_ROOT_PASSWORD: 888888
+  redis:
+    image: redis:6.0.7-buster
+    sysctls:
+      net.core.somaxconn: 1024

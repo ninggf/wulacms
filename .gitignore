@@ -4,22 +4,29 @@
 .project
 .idea
 *.log
+*.map
 .vscode
+.phpunit.*
 dummy.php
-conf/*_dev.php
+/conf/*_dev.php
 .DS_Store
 *.bak
 # composer
-vendor/
+/vendor/
 composer.lock
 tmp/
 # wulaphp
 test.php
-conf/config.php
-conf/dbconfig.php
+test*.php
+/conf/config.php
+/conf/dbconfig.php
 install.lock
+package-lock.json
 .env
-extensions/
-modules/
-themes/
-wula/
+/extensions/
+/modules/
+/themes/
+/storage/
+node_modules/
+docker-compose.yml
+docker-compose.yaml

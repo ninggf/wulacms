@@ -1,58 +1,55 @@
 {
-  "name": "wula/wulacms",
-  "description": "我们努力做一个比较优秀的内容管理框架(CMF)，争取让她像异星战场中的乌拉一样快",
-  "require": {
-	"php": ">=5.6 || >= 7.1",
-	"ext-json": "*",
-	"ext-pdo": "*",
-	"ext-pdo_mysql": "*",
-	"ext-mbstring": "*",
-	"ext-xml": "*",
-	"ext-curl": "*",
-	"ext-SPL": "*",
-	"ext-mysqlnd": "*",
-	"michelf/php-markdown": "^1.7",
-	"imagine/imagine": "^0.7.1",
-	"wula/wula-installer": "^1.0",
-	"wula/wulaphp": "^1.16.6",
-	"wula/curlient": "^1.0.0",
-	"wula/cms-support": "^1.0.6",
-	"wula/jqadmin": "^1.3.11",
-	"wulacms/backend": "^1.0.9",
-	"wulacms/system": "^1.0.4",
-	"wulacms/cms": "^1.2.0",
-	"wulacms/media": "^1.0.0"
-  },
-  "license": "MIT",
-  "keywords": [
-	"CMF",
-	"CMS"
-  ],
-  "time": "2016-12-07",
-  "scripts": {
-	"post-create-project-cmd": [
-	  "php artisan init"
-	]
-  },
-  "type": "project",
-  "config": {
-	"preferred-install": "dist",
-	"optimize-autoloader": true,
-	"classmap-authoritative": true
-  },
-  "authors": [
-	{
-	  "name": "Leo Ning",
-	  "email": "windywany@gmail.com"
-	}
-  ],
-  "extra": {
-	"branch-alias": {
-	  "dev-master": "1.0-dev"
-	}
-  },
-  "support": {
-	"issues": "https://github.com/ninggf/wulacms/issues"
-  },
-  "homepage": "http://www.wulacms.com/"
+    "name": "wula/wulacms",
+    "description": "a content manager system powered by wulaphp.",
+    "require": {
+        "php": ">= 7.2",
+        "ext-json": "*",
+        "ext-curl": "*",
+        "ext-mbstring": "*",
+        "ext-gd": "*",
+        "ext-pcre": "*",
+        "ext-session": "*",
+        "ext-mysqlnd": "*",
+        "ext-pdo_mysql": "*",
+        "ext-SPL": "*",
+        "ext-Reflection": "*",
+        "wula/wulaphp": "^3.8",
+        "wulacms/system": "^3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.5"
+    },
+    "suggest": {
+        "ext-yac": "*"
+    },
+    "license": "MIT",
+    "keywords": [
+        "CMF",
+        "CMS",
+        "wulaphp",
+        "php",
+        "adminui"
+    ],
+    "time": "2018-06-20",
+    "type": "project",
+    "config": {
+        "preferred-install": "dist",
+        "optimize-autoloader": true,
+        "classmap-authoritative": true
+    },
+    "authors": [
+        {
+            "name": "Leo Ning",
+            "email": "windywany@gmail.com"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0-dev"
+        }
+    },
+    "support": {
+        "issues": "https://github.com/ninggf/wulacms/issues"
+    },
+    "homepages": "https://www.wulacms.com/"
 }

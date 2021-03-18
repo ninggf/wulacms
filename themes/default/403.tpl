@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Permission denied!</title>
+    <meta charset="UTF-8">
+    <title>403 Forbidden</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <style>
         pre {
@@ -24,6 +25,13 @@
             width: 200px;
             margin: 5rem auto;
         }
+
+        .err {
+            color: red;
+            margin-top: -90px;
+            width: 600px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -42,6 +50,6 @@
     ___`. | .'___
    (______|______)
 </pre>
-<div class="page-404" style="color: red;margin-top: -90px;">&nbsp;{$message}</div>
+<div class="page-404 err">{$message}</div>
 </body>
 </html>
