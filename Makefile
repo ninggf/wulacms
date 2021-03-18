@@ -1,22 +1,28 @@
 DST_IMG_TAG   = wula/app
 TEST_SVC_NAME = test
+HAS_SVC_TAG   = 1
 app_files     = conf crontab modules extensions includes themes vendor wwwroot artisan bootstrap.php
 DOC_RUN       = docker-compose -f tests/docker-compose.yml
 
 build:image
 
 image:tar
-	docker build --build-arg APP_VER="${APP_VER}" -t "${DST_IMG_TAG}:${APP_VER}-app" -f docker/Dockerfile docker/
-	docker build --build-arg APP_VER="${APP_VER}" -t "${DST_IMG_TAG}:${APP_VER}-svc" -f docker/service.Dockerfile docker/
+	docker build --build-arg APP_VER="${APP_VER}" -t "${DST_IMG_TAG}:${APP_VER}-app" -f docker/Dockerfile docker
+	if [ "${HAS_SVC_TAG}" = "1" ]; then \
+  		docker build --build-arg APP_VER="$${APP_VER}" -t "${DST_IMG_TAG}:$${APP_VER}-svc" -f docker/service.Dockerfile docker;\
+  	fi
+	rm -f docker/*.tar.bz2
 
 tag:build
-	@if [ -z "$${REG_HOST}"  ]; then \
+	@if [ -z "$${REG_HOST}" ]; then \
 		echo 'error: REG_HOST is not exported for registry host!';\
 		echo 'please run "export REG_HOST=xx.xx.xx.xx" first!';\
 		exit 1;\
 	fi
 	docker tag "${DST_IMG_TAG}:${APP_VER}-app" "${REG_HOST}/${DST_IMG_TAG}:${APP_VER}-app"
-	docker tag "${DST_IMG_TAG}:${APP_VER}-svc" "${REG_HOST}/${DST_IMG_TAG}:${APP_VER}-svc"
+	if [ "${HAS_SVC_TAG}" = "1" ]; then \
+		docker tag "${DST_IMG_TAG}:$${APP_VER}-svc" "$${REG_HOST}/${DST_IMG_TAG}:$${APP_VER}-svc";\
+	fi
 
 tar:clean
 	@if [ -z "$${APP_VER}"  ]; then \
@@ -28,7 +34,9 @@ tar:clean
 
 install:tag
 	docker push "${REG_HOST}/${DST_IMG_TAG}:${APP_VER}-app"
-	docker push "${REG_HOST}/${DST_IMG_TAG}:${APP_VER}-svc"
+	if [ "${HAS_SVC_TAG}" = "1" ]; then \
+		docker push "$${REG_HOST}/${DST_IMG_TAG}:$${APP_VER}-svc";\
+	fi
 
 test:
 	$(DOC_RUN) up -d
