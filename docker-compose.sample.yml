@@ -8,6 +8,9 @@ services:
     volumes:
       - "./:/var/www/html/"
       - "./docker/etc/nginx/nginx.conf:/usr/local/etc/nginx/nginx.conf:ro"
+    links:
+      - mysql
+      - redis
   mysql:
     image: mysql:5.7.31
     volumes:

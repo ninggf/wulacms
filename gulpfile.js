@@ -283,7 +283,7 @@ const buildJs = (cb, m) => {
 }
 
 const buildAddonJs = (cb) => {
-    let gp = src([pathName('/src/addon/*.js', 'backend'), pathName('/src/addon/**/*.js', 'backend')], {
+    let gp = src([pathName('/src/addon/**/*.js', 'backend')], {
         allowEmpty: true
     })
 
@@ -430,14 +430,14 @@ const watching = (cb, f) => {
     watch([pathName('/src/widget/*.vue', f)], cb => {
         buildVue(cb, f)
     })
-    watch([pathName('/src/js/*.js', f)], cb => {
+    watch([pathName('/src/js/**/*.js', f)], cb => {
         buildJs(cb, f)
     })
     watch([pathName('/src/less/[^_]*.less', f)], cb => {
         buildCss(cb, f)
     })
     if (f === 'backend') {
-        watch(pathName('/src/css/*.css', f), cb => {
+        watch(pathName('/src/css/**/*.css', f), cb => {
             buildAdminCss(cb)
         });
         watch([pathName('/src/addon/**/*.js', f)], cb => {
