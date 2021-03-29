@@ -8,25 +8,29 @@
 .vscode
 .phpunit.*
 dummy.php
-/conf/*_dev.php
 .DS_Store
 *.bak
+a.php
+b.php
+c.php
 # composer
 /vendor/
 composer.lock
-tmp/
 # wulaphp
-test.php
-test*.php
+**/test.php
+**/test*.*
+/conf/install.lock
+/conf/.env
 /conf/config.php
+/conf/*_dev.php
 /conf/dbconfig.php
-install.lock
-package-lock.json
-.env
-/extensions/
-/modules/
-/themes/
+/modules/*/assets/
+/modules/**/*.phtml
 /storage/
-node_modules/
+/storage/tmp/
+/storage/logs/
+# nodejs
+**/node_modules/
+package-lock.json
 docker-compose.yml
 docker-compose.yaml
