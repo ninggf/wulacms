@@ -3,9 +3,8 @@
     "version": "3.0.0",
     "description": "a conent manager system powered by wulaphp.",
     "scripts": {
-        "layui": "gulp layui --env=pro",
         "build": "gulp",
-        "publish": "gulp --env=pro && gulp layui --env=pro",
+        "publish": "gulp --env=pro",
         "watch": "gulp watch",
         "clean": "gulp clean"
     },
@@ -21,8 +20,7 @@
         "php",
         "ui",
         "cms",
-        "vue",
-        "vuejs"
+        "adminui"
     ],
     "author": "ningGf",
     "license": "MIT",
@@ -48,10 +46,8 @@
         "gulp-jsvalidate": "^4.0.0",
         "gulp-less": "^4.0.1",
         "gulp-notify": "^3.2.0",
-        "gulp-open": "^3.0.1",
         "gulp-postcss": "^8.0.0",
-        "gulp-rename": "^1.4.0",
-        "gulp-replace": "^1.0.0",
+        "gulp-rename": "^2.0.0",
         "gulp-rimraf": "^1.0.0",
         "gulp-sourcemaps": "^2.6.5",
         "gulp-strip-debug": "^3.0.0",

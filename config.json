@@ -1,8 +1,0 @@
-{
-    "dev": {
-        "baseURL": "/"
-    },
-    "pro": {
-        "baseURL": "/"
-    }
-}

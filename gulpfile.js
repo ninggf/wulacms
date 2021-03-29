@@ -1,32 +1,34 @@
-const config                               = require('./config.json')
-const {src, dest, series, parallel, watch} = require('gulp');
-const fs                                   = require("fs");
-const path                                 = require("path");
-const pkg                                  = require('./package.json')
-const os                                   = require('os')
-const through                              = require('through2');
-const babel                                = require('gulp-babel')
-const less                                 = require('gulp-less')
-const lessc                                = require('less')
-const postcss                              = require('gulp-postcss')
-const autoprefix                           = require('autoprefixer')
-const pxtorem                              = require('postcss-pxtorem')
-const connect                              = require('gulp-connect')
-const minimist                             = require('minimist')
-const cleancss                             = require('gulp-clean-css')
-const minifyCSS                            = require('clean-css');
-const clean                                = require('gulp-rimraf')
-const uglify                               = require('gulp-uglify')
-const relogger                             = require('gulp-strip-debug')
-const validate                             = require('gulp-jsvalidate')
-const notify                               = require('gulp-notify')
-const header                               = require('gulp-header')
-const sourceMap                            = require('gulp-sourcemaps')
-const identityMap                          = require('@gulp-sourcemaps/identity-map')
-const replace                              = require('gulp-replace')
-const include                              = require('gulp-include')
-let modules                                = []
-let babelRc                                = {
+const {src, dest, series, watch} = require('gulp');
+const fs                         = require("fs");
+const path                       = require("path");
+const pkg                        = require('./package.json')
+const os                         = require('os')
+const through                    = require('through2');
+const babelc                     = require('@babel/core')
+const babel                      = require('gulp-babel')
+const less                       = require('gulp-less')
+const lessc                      = require('less')
+const postcss                    = require('gulp-postcss')
+const autoprefix                 = require('autoprefixer')
+const pxtorem                    = require('postcss-pxtorem')
+const connect                    = require('gulp-connect')
+const minimist                   = require('minimist')
+const cleancss                   = require('gulp-clean-css')
+const minifyCSS                  = require('clean-css');
+const clean                      = require('gulp-rimraf')
+const uglify                     = require('gulp-uglify')
+const uglifyJs                   = require('uglify-js');
+const relogger                   = require('gulp-strip-debug')
+const validate                   = require('gulp-jsvalidate')
+const notify                     = require('gulp-notify')
+const header                     = require('gulp-header')
+const sourceMap                  = require('gulp-sourcemaps')
+const identityMap                = require('@gulp-sourcemaps/identity-map')
+const include                    = require('gulp-include')
+const rename                     = require('gulp-rename')
+
+let modules = []
+let babelRc = {
     "presets": [
         [
             "@babel/preset-env",
@@ -39,19 +41,18 @@ let babelRc                                = {
     ],
     "plugins": [
         "@babel/plugin-proposal-class-properties"
-    ]
+    ],
+    "compact": true
 };
 
 const knownOptions = {
-          string : 'env',
-          default: {
-              env: process.env.NODE_ENV || 'dev',
-              m  : 'all'
-          }
-      },
-      options      = minimist(process.argv.slice(2), knownOptions),
-      ccfg         = options.env === "pro" ? config.pro : config.dev,
-      baseURL      = ccfg.baseURL
+    string : 'env',
+    default: {
+        env: process.env.NODE_ENV || 'dev',
+        m  : 'all'
+    }
+}
+    , options      = minimist(process.argv.slice(2), knownOptions)
 
 const pathName = (path, f) => {
     let path_arr = [...path], reverse = 0;
@@ -84,10 +85,13 @@ const getModules = cb => {
         arr.forEach(f => {
                 promise_list.push(
                     new Promise(resovle => {
-                        if (fs.statSync(path.join('.', 'modules', f)).isDirectory()) {
-                            if (f !== 'node_modules' && (options.m === 'all' || options.m === f)) {
-                                modules.push(f)
+                        try {
+                            if (fs.statSync(path.join('.', 'modules', f, 'src')).isDirectory()) {
+                                if (f !== 'node_modules' && (options.m === 'all' || options.m === f)) {
+                                    modules.push(f)
+                                }
                             }
+                        } catch (e) {
                         }
                         resovle();
                     })
@@ -100,90 +104,90 @@ const getModules = cb => {
     })
 }
 
-const cmt            = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> License By <%= pkg.homepage %> */' + os.EOL + ' <%= js %>',
-      note           = [cmt, {
-          pkg: pkg,
-          js : ';'
-      }],
-      noteCss        = [cmt, {
-          pkg: pkg,
-          js : ''
-      }], layuiTasks = {
-          minjs(cb) {
-              let mod  = options.mod ? function () {
-                      return '(' + options.mod.replace(/,/g, '|') + ')';
-                  }() : '',
-                  srcx = [
-                      pathName('layui/src/**/*' + mod + '.js', 'backend'),
-                      pathName('!layui/src/**/mobile/*.js', 'backend'),
-                      pathName('!layui/src/lay/**/mobile.js', 'backend'),
-                      pathName('!layui/src/lay/all.js', 'backend'),
-                      pathName('!layui/src/lay/all-mobile.js', 'backend')
-                  ]
-              let gp   = src(srcx)
+const cmt        = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> License By <%= pkg.homepage %> */' + os.EOL + ' <%= js %>'
+    , note       = [cmt, {
+    pkg: pkg,
+    js : ';'
+}]
+    , noteCss    = [cmt, {
+    pkg: pkg,
+    js : ''
+}]
+    , compile    = (stream, file, content, css, next) => {
+    let gps    = /<template>(.*)<\/template>/ims.test(content),
+        tpl    = gps ? RegExp.$1 : null;
+    let script = /<script[^>]*>(.*)<\/script>/ims.test(content);
+    if (tpl && script) {
+        content = RegExp.$1.trim().replace('$tpl$', tpl.trim())
+    } else if (script) {
+        content = RegExp.$1.trim()
+    }
+    if (css) {
+        let minCss = new minifyCSS({
+            compatibility: '*'
+        }).minify(css.css).styles;
 
-              if (options.env === 'pro') {
-                  gp = gp.pipe(uglify())
-              }
-              gp = gp.pipe(dest(pathName('./assets/lib', 'backend')))
+        let styleId = css.styleID;
+        content     = `layui.injectCss('cmp-${styleId}',\`${minCss}\`);` + content;
+    }
 
-              cb()
-          },
-          mincss(cb) {
-              const srcx = [
-                  pathName('layui/src/css/**/*.css', 'backend'), pathName('!layui/src/css/**/font.css', 'backend')
-              ]
+    file.contents = Buffer.from(content);//替换文件内容
+    stream.push(file);
+    next();
+}
+    , compileTpl = (stream, file, content, css, next) => {
+    let gps      = /<template>(.*)<\/template>/ims.test(content)
+        , tpl    = gps ? RegExp.$1 : null
+        , script = /^<script[^>]*>(.*)<\/script>/ims.test(content)
+        , code   = script ? RegExp.$1.trim() : ''
+        , cnts   = []
+        , minCss = css.css
 
-              let gp = src(srcx)
+    if (css && options.env === 'pro') {
+        minCss = new minifyCSS({
+            compatibility: '*'
+        }).minify(css.css).styles;
+    }
+    if (minCss) {
+        cnts.push('<style>' + minCss + '</style>')
+    }
+    if (tpl) {
+        cnts.push(tpl.trim())
+    }
 
-              if (options.env === 'pro') {
-                  gp = gp.pipe(cleancss())
-              }
-
-              gp = gp.pipe(dest(pathName('./assets/lib/css', 'backend')))
-
-              cb()
-          },
-          font(cb) {
-              src(pathName('layui/src/font/*', 'backend'))
-              .pipe(dest(pathName('./assets/lib/font', 'backend')))
-
-              cb()
-          },
-          mv(cb) {
-              const srcx = [pathName('layui/src/**/*.{png,jpg,gif,html,mp3,json}', 'backend')]
-
-              src(srcx).pipe(dest(pathName('./assets/lib', 'backend')))
-
-              cb()
-          }
-      };
-
-const compileVue = function () {
-    //编译js
-    const compile = (stream, file, content, css, next) => {
-        let gps    = /<template>(.*)<\/template>/ims.test(content),
-            tpl    = gps ? RegExp.$1 : null;
-        let script = /<script[^>]*>(.*)<\/script>/ims.test(content);
-        if (tpl && script) {
-            content = RegExp.$1.trim().replace('$tpl$', tpl.trim())
-        } else if (script) {
-            content = RegExp.$1.trim()
+    if (script) {
+        const fileOpts = Object.assign({}, babelRc, {
+            filename        : file.path,
+            filenameRelative: file.relative,
+            sourceMap       : Boolean(file.sourceMap),
+            sourceFileName  : file.relative
+        });
+        let sc         = babelc.transformSync(code, fileOpts)
+            , fp       = file.path
+            , php_code = '<script><?php echo \'window.pageData = \',json_encode($pageData??[]);?>;'
+        if (options.env === 'pro') {
+            let min = uglifyJs.minify(sc.code, {warnings: true, fromString: true})
+            if (!min.error) {
+                sc.code = min.code
+            } else {
+                console.error(min.error)
+                notify.onError(min.error)
+            }
         }
-        if (css) {
-            let minCss = new minifyCSS({
-                compatibility: '*'
-            }).minify(css.css).styles;
+        cnts.push(php_code + sc.code + '</script>')
+    }
 
-            let styleId = css.styleID;
-            content     = `layui.injectCss('cmp-${styleId}',\`${minCss}\`);` + content;
-        }
+    file.contents = Buffer.from(cnts.join("\n"));//替换文件内容
+    stream.push(file);
+    next();
+};
 
-        file.contents = Buffer.from(content);
-        stream.push(file);
-        next();
-    };
+const compileVue = () => {
     return through.obj(function (file, enc, cbx) {
+        if (file.isNull()) {
+            cbx(null, file);
+            return;
+        }
         let content = file.contents.toString();
 
         let les = /<style\s+id\s*=\s*"([^"]+)"[^>]*>(.*)<\/style>/ims.test(content),
@@ -197,14 +201,36 @@ const compileVue = function () {
             }).then((val) => {
                 val.styleID = styleID;
                 compile(this, file, content, val, cbx)
-            }).catch((err) => {
-                compile(this, file, content, false, cbx);
-            });
+            })
         } else {
             compile(this, file, content, false, cbx)
         }
     });
 };
+
+const compileView = () => {
+    return through.obj(function (file, enc, cbx) {
+        if (file.isNull()) {
+            cbx(null, file);
+            return;
+        }
+        let content = file.contents.toString()
+            , les   = /<style[^>]*>(.*)<\/style>/ims.test(content)
+            , css   = les ? RegExp.$1.trim() : null;
+
+        if (css) {
+            //编译less
+            lessc.render(css, {
+                async    : false,
+                fileAsync: false
+            }).then((val) => {
+                compileTpl(this, file, content, val, cbx)
+            })
+        } else {
+            compileTpl(this, file, content, false, cbx)
+        }
+    });
+}
 
 const cleanTask = (cb, m) => {
     src([
@@ -213,6 +239,7 @@ const cleanTask = (cb, m) => {
         pathName('assets/font', m),
         pathName('assets/img', m),
         pathName('assets/addon', m),
+        pathName('views/**/*.phtml', m),
     ], {
         allowEmpty: true
     }).pipe(clean())
@@ -250,10 +277,7 @@ const buildJs = (cb, m) => {
     if (options.env === 'pro') {
         gp = gp.pipe(include())
     }
-    gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
-    .pipe(replace('$@', baseURL + 'modules/'))
-    .pipe(replace('$!', baseURL + 'themes/'))
-    .pipe(babel(babelRc)).on('error', (e) => {
+    gp = gp.pipe(babel(babelRc)).on('error', (e) => {
         console.error(e.message)
         notify.onError(e.message)
     }).pipe(validate()).on('error', (e) => {
@@ -304,8 +328,6 @@ const buildAddonJs = (cb) => {
 }
 
 const buildCss = (cb, m) => {
-    console.log('build css for ' + m)
-
     let gp = src([pathName('/src/less/[^_]*.less', m)], {
         allowEmpty: true
     })
@@ -314,10 +336,7 @@ const buildCss = (cb, m) => {
         gp = gp.pipe(sourceMap.init()).pipe(identityMap());
     }
 
-    gp = gp.pipe(replace('$~', baseURL + 'modules/' + m + '/assets'))
-    .pipe(replace('$@', baseURL + 'modules/'))
-    .pipe(replace('$!', baseURL + 'themes/'))
-    .pipe(less()).on('error', e => {
+    gp = gp.pipe(less()).on('error', e => {
         console.error(e.message)
     })
     .pipe(postcss([pxtorem({
@@ -398,10 +417,7 @@ const buildVue = (cb, f) => {
     if (options.env !== 'pro') {
         gp = gp.pipe(sourceMap.init()).pipe(identityMap());
     }
-    gp = gp.pipe(replace('$~', baseURL + 'modules/' + f + '/assets'))
-    .pipe(replace('$@', baseURL + 'modules/'))
-    .pipe(replace('$!', baseURL + 'themes/'))
-    .pipe(compileVue())
+    gp = gp.pipe(compileVue())
     .pipe(babel(babelRc)).on('error', (e) => {
         console.error(e.message);
         notify.onError(e.message)
@@ -417,10 +433,25 @@ const buildVue = (cb, f) => {
             console.error(['widget', e.message])
         }).pipe(header.apply(null, note))
     }
+
     if (options.env !== 'pro') {
         gp = gp.pipe(sourceMap.write())
     }
+
     gp.pipe(dest(pathName('/assets/js', f)));
+    cb();
+}
+
+const buildView = (cb, f) => {
+    let gp = src([pathName('/src/views/**/*.vue', f)], {
+        allowEmpty: true
+    });
+
+    gp.pipe(compileView())
+    .pipe(rename((path) => {
+        path.extname = '.phtml'
+    }))
+    .pipe(dest(pathName('/views', f)));
     cb();
 }
 
@@ -429,6 +460,9 @@ const watching = (cb, f) => {
     options.watch = false
     watch([pathName('/src/widget/*.vue', f)], cb => {
         buildVue(cb, f)
+    })
+    watch([pathName('/src/views/**/*.vue', f)], cb => {
+        buildView(cb, f)
     })
     watch([pathName('/src/js/**/*.js', f)], cb => {
         buildJs(cb, f)
@@ -455,6 +489,7 @@ exports.default = series(getModules, cb => {
         buildCss(cb, f)
         buildJs(cb, f)
         buildVue(cb, f)
+        buildView(cb, f)
         copyImg(cb, f)
         if (f === 'backend') {
             buildAdminCss(cb)
@@ -481,8 +516,3 @@ exports.watch = series(getModules, cb => {
     })
     cb();
 })
-
-exports.layui = fs.existsSync(pathName('layui', 'backend')) ? parallel(layuiTasks.minjs, layuiTasks.mincss, layuiTasks.mv, layuiTasks.font) : cb => {
-    console.log('layui src does not exist!')
-    cb()
-}
