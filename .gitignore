@@ -24,6 +24,8 @@ composer.lock
 /conf/config.php
 /conf/*_dev.php
 /conf/dbconfig.php
+/modules/backend/
+/modules/system/
 /modules/*/assets/
 /modules/**/*.phtml
 /storage/
