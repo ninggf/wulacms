@@ -136,12 +136,14 @@ const cmt        = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> L
     next();
 }
     , compileTpl = (stream, file, content, css, next) => {
-    let gps      = /<template>(.*)<\/template>/ims.test(content)
-        , tpl    = gps ? RegExp.$1 : null
-        , script = /^<script[^>]*>(.*)<\/script>/ims.test(content)
-        , code   = script ? RegExp.$1.trim() : ''
-        , cnts   = []
-        , minCss = css.css
+    let gps       = /^<template(\s+data-php)?>(.*)<\/template>/ims.test(content)
+        , tpl     = gps ? RegExp.$2 : null
+        , type    = gps ? RegExp.$1 : null
+        , script  = /^<script[^>]*>(.*)<\/script>/ims.test(content)
+        , code    = script ? RegExp.$1.trim() : ''
+        , cnts    = []
+        , minCss  = css.css
+    file.dextname = type ? '.phtml' : '.tpl'
 
     if (css && options.env === 'pro') {
         minCss = new minifyCSS({
@@ -154,7 +156,6 @@ const cmt        = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> L
     if (tpl) {
         cnts.push(tpl.trim())
     }
-
     if (script) {
         const fileOpts = Object.assign({}, babelRc, {
             filename        : file.path,
@@ -162,9 +163,10 @@ const cmt        = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> L
             sourceMap       : Boolean(file.sourceMap),
             sourceFileName  : file.relative
         });
+
         let sc         = babelc.transformSync(code, fileOpts)
-            , fp       = file.path
-            , php_code = '<script><?php echo \'window.pageData = \',json_encode($pageData??[]);?>;'
+            , php_code = type ? '<script><?php echo \'pageData = \',json_encode($pageData??[]);?>;' :
+            '<script>var pageData = {$pageData|json_encode};{literal}'
         if (options.env === 'pro') {
             let min = uglifyJs.minify(sc.code, {warnings: true, fromString: true})
             if (!min.error) {
@@ -174,7 +176,7 @@ const cmt        = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> L
                 notify.onError(min.error)
             }
         }
-        cnts.push(php_code + sc.code + '</script>')
+        cnts.push(php_code + sc.code + (type ? '' : '{/literal}') + '</script>')
     }
 
     file.contents = Buffer.from(cnts.join("\n"));//替换文件内容
@@ -448,8 +450,8 @@ const buildView = (cb, f) => {
     });
 
     gp.pipe(compileView())
-    .pipe(rename((path) => {
-        path.extname = '.phtml'
+    .pipe(rename((path, file) => {
+        path.extname = file.dextname
     }))
     .pipe(dest(pathName('/views', f)));
     cb();
