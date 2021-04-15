@@ -26,6 +26,7 @@ const sourceMap                  = require('gulp-sourcemaps')
 const identityMap                = require('@gulp-sourcemaps/identity-map')
 const include                    = require('gulp-include')
 const rename                     = require('gulp-rename')
+const concat                     = require('gulp-concat')
 
 let modules = []
 let babelRc = {
@@ -328,8 +329,31 @@ const buildAddonJs = (cb) => {
 
     cb();
 }
+const buildLayuiJs = (cb) => {
+    let mods = 'lay,laytpl,laypage,laydate,jquery,layer,util,element,upload,dropdown,slider,colorpicker,form,tree,transfer,table,carousel,rate,flow,layedit,code'
+        , gp = src([
+        pathName('/src/layui/**/{layui,layui.all,' + mods + '}.js', 'backend'),
+        pathName('/src/layui/common.js', 'backend')
+    ], {allowEmpty: true})
 
-const buildCss = (cb, m) => {
+    gp = gp.pipe(include()).pipe(concat('layui.js', {newLine: ''}));
+
+    if (options.env === 'pro') {
+        gp = gp.pipe(relogger()).pipe(uglify()).on('error', (e) => {
+            notify.onError(e.message)
+            console.error(['js', e.message, e])
+        }).pipe(header.apply(null, note))
+    }
+
+    gp = gp.pipe(dest(pathName('/assets/js', 'backend')))
+
+    if (options.watch) {
+        gp.pipe(connect.reload());
+    }
+
+    cb()
+}
+const buildCss     = (cb, m) => {
     let gp = src([pathName('/src/less/[^_]*.less', m)], {
         allowEmpty: true
     })
@@ -479,6 +503,9 @@ const watching = (cb, f) => {
         watch([pathName('/src/addon/**/*.js', f)], cb => {
             buildAddonJs(cb)
         })
+        watch([pathName('/src/layui/**/*.js', f)], cb => {
+            buildLayuiJs(cb)
+        })
         watch([pathName('/src/addon/**/*.css', f)], cb => {
             buildAddonCss(cb)
         })
@@ -495,6 +522,7 @@ exports.default = series(getModules, cb => {
         copyImg(cb, f)
         if (f === 'backend') {
             buildAdminCss(cb)
+            buildLayuiJs(cb)
             buildAddonJs(cb)
             buildAddonCss(cb)
             copyAdminFont(cb)
