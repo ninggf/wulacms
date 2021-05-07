@@ -10,6 +10,7 @@
         "ext-pcre": "*",
         "ext-session": "*",
         "ext-mysqlnd": "*",
+        "ext-pdo": "*",
         "ext-pdo_mysql": "*",
         "ext-SPL": "*",
         "ext-Reflection": "*",

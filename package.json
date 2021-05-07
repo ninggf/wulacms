@@ -6,7 +6,8 @@
         "build": "gulp",
         "publish": "gulp --env=pro",
         "watch": "gulp watch",
-        "clean": "gulp clean"
+        "clean": "gulp clean",
+        "postinstall": "npm run build"
     },
     "repository": {
         "type": "git",
