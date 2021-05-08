@@ -14,5 +14,23 @@ return [
         'combinate' => env('resource.combinate', 0),
         'minify'    => env('resource.minify', 0)
     ],
+    'uploader' => [
+        'local'    => [
+            'name' => 'Local',
+            'ref'  => '#default',
+            //'-watermark' => 1,
+        ],
+        '#default' => [
+            'url'       => '/',
+            'name'      => 'Local Filesystem',
+            'uploader'  => '\wulaphp\io\LocaleUploader',
+            'allowed'   => explode(',', 'jpg,gif,png,bmp,jpeg,zip,rar,7z,tar,gz,bz2,doc,docx,txt,ppt,pptx,xls,xlsx,pdf,mp3,avi,mp4,flv,swf'),
+            'watermark' => [],
+            'setup'     => [
+                'dest' => 'files'
+            ],
+            'maxSize'   => 10000000
+        ]
+    ],
     'modules'  => ['system']
 ];
