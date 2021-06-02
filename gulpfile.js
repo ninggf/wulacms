@@ -256,7 +256,8 @@ const copyImg = (cb, m) => {
         pathName('/src/**/*.gif', m),
         pathName('/src/**/*.jpeg', m),
         pathName('/src/**/*.jpg', m),
-        pathName('/src/**/*.webp', m)
+        pathName('/src/**/*.webp', m),
+        pathName('/src/**/*.svg', m)
     ], {
         allowEmpty: true
     })
