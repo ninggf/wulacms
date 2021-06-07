@@ -29,7 +29,16 @@ const rename                     = require('gulp-rename')
 const concat                     = require('gulp-concat')
 
 let modules = []
-let babelRc = {
+
+const knownOptions = {
+    string : 'env',
+    default: {
+        env: process.env.NODE_ENV || 'dev',
+        m  : 'all'
+    }
+}
+    , options      = minimist(process.argv.slice(2), knownOptions)
+let babelRc        = {
     "presets": [
         [
             "@babel/preset-env",
@@ -43,17 +52,8 @@ let babelRc = {
     "plugins": [
         "@babel/plugin-proposal-class-properties"
     ],
-    "compact": true
+    "compact": options.env === 'pro'
 };
-
-const knownOptions = {
-    string : 'env',
-    default: {
-        env: process.env.NODE_ENV || 'dev',
-        m  : 'all'
-    }
-}
-    , options      = minimist(process.argv.slice(2), knownOptions)
 
 const pathName = (path, f) => {
     let path_arr = [...path], reverse = 0;
@@ -152,7 +152,11 @@ const cmt        = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> L
         }).minify(css.css).styles;
     }
     if (minCss) {
-        cnts.push('<style>' + minCss + '</style>')
+        if (!type) {
+            cnts.push('{literal}<style>' + minCss + '</style>{/literal}')
+        } else {
+            cnts.push('<style>' + minCss + '</style>')
+        }
     }
     if (tpl) {
         cnts.push(tpl.trim())
@@ -161,13 +165,13 @@ const cmt        = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> L
         const fileOpts = Object.assign({}, babelRc, {
             filename        : file.path,
             filenameRelative: file.relative,
-            sourceMap       : Boolean(file.sourceMap),
+            sourceMap       : false,
             sourceFileName  : file.relative
         });
 
         let sc         = babelc.transformSync(code, fileOpts)
             , php_code = type ? '<script><?php echo \'pageData = \',json_encode($pageData??[]);?>;' :
-            '<script>var pageData = {$pageData|json_encode};{literal}'
+            '<script>var pageData = {$pageData|json_encode};{literal}'+"\n"
         if (options.env === 'pro') {
             let min = uglifyJs.minify(sc.code, {warnings: true, fromString: true})
             if (!min.error) {
@@ -256,8 +260,7 @@ const copyImg = (cb, m) => {
         pathName('/src/**/*.gif', m),
         pathName('/src/**/*.jpeg', m),
         pathName('/src/**/*.jpg', m),
-        pathName('/src/**/*.webp', m),
-        pathName('/src/**/*.svg', m)
+        pathName('/src/**/*.webp', m)
     ], {
         allowEmpty: true
     })
@@ -503,6 +506,7 @@ const watching = (cb, f) => {
         });
         watch([pathName('/src/addon/**/*.js', f)], cb => {
             buildAddonJs(cb)
+            buildLayuiJs(cb)
         })
         watch([pathName('/src/layui/**/*.js', f)], cb => {
             buildLayuiJs(cb)
