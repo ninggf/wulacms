@@ -497,7 +497,7 @@ const watching = (cb, f) => {
     watch([pathName('/src/js/**/*.js', f)], cb => {
         buildJs(cb, f)
     })
-    watch([pathName('/src/less/[^_]*.less', f)], cb => {
+    watch([pathName('/src/less/*.less', f)], cb => {
         buildCss(cb, f)
     })
     if (f === 'backend') {
