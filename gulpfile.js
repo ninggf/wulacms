@@ -171,7 +171,7 @@ const cmt        = '/** <%= pkg.name %>-v<%= pkg.version %> <%= pkg.license %> L
 
         let sc         = babelc.transformSync(code, fileOpts)
             , php_code = type ? '<script><?php echo \'pageData = \',json_encode($pageData??[]);?>;' :
-            '<script>var pageData = {$pageData|json_encode};{literal}'+"\n"
+            '<script>var pageData = {$pageData|json_encode};{literal}' + "\n"
         if (options.env === 'pro') {
             let min = uglifyJs.minify(sc.code, {warnings: true, fromString: true})
             if (!min.error) {
@@ -260,6 +260,7 @@ const copyImg = (cb, m) => {
         pathName('/src/**/*.gif', m),
         pathName('/src/**/*.jpeg', m),
         pathName('/src/**/*.jpg', m),
+        pathName('/src/**/*.svg', m),
         pathName('/src/**/*.webp', m)
     ], {
         allowEmpty: true
