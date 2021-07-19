@@ -50,7 +50,8 @@ let babelRc        = {
         ]
     ],
     "plugins": [
-        "@babel/plugin-proposal-class-properties"
+        "@babel/plugin-proposal-class-properties",
+        ["@babel/plugin-proposal-private-methods", {"loose": false}]
     ],
     "compact": options.env === 'pro'
 };
