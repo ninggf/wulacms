@@ -4,21 +4,21 @@
 
 ### 依赖
 
-1. PHP >= 7.1
+1. PHP >= 7.2
 2. MySQL >= 5.6
-3. ext-pdo
+3. ext-pdo_mysql
 4. ext-mysqlnd
-4. ext-mbstring
+5. ext-mbstring
 
 ### 安装
 
 1. 通过`composer`安装: 
 
-    `# composer create-project wula/wulacms`
+    `# composer create-project wula/wulacms . ^v2`
 
 2. 通过`git`安装：
     
-    `# git clone https://github.com/ninggf/wulacms.git`
+    `# git clone -b v2.0 https://github.com/ninggf/wulacms.git`
     
     `# composer install`
   

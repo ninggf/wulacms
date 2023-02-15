@@ -2,7 +2,7 @@
     "name": "wula/wulacms",
     "description": "我们努力做一个比较优秀的内容管理框架(CMF)，争取让她像异星战场中的乌拉一样快",
     "require": {
-        "php": ">=7.1",
+        "php": "~7.2",
         "ext-json": "*",
         "ext-PDO": "*",
         "ext-pdo_mysql": "*",
@@ -14,16 +14,17 @@
         "ext-session": "*",
         "ext-mysqlnd": "*",
         "ext-Reflection": "*",
-        "wula/wulaphp": "^2.5",
-        "wula/cms-support": "^2.0",
-        "wula/jqadmin": "^2.3",
-        "wulacms/backend": "^2.3",
-        "wulacms/system": "^2.3",
-        "wulacms/media": "^2.2",
-        "wulacms/rest": "^2.2"
+        "wula/wulaphp": "~3.7.0",
+        "wula/cms-support": "^3.0",
+        "wula/jqadmin": "^2.4",
+        "wulacms/backend": "^2.4",
+        "wulacms/system": "^2.4",
+        "wulacms/media": "^2.4",
+        "wulacms/rest": "^2.4",
+        "wulacms/cms": "^3.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.3"
+        "phpunit/phpunit": "^8.5"
     },
     "suggest": {
         "ext-posix": "*",
@@ -47,7 +48,10 @@
     "config": {
         "preferred-install": "dist",
         "optimize-autoloader": true,
-        "classmap-authoritative": true
+        "classmap-authoritative": true,
+        "allow-plugins": {
+            "wula/wula-installer": true
+        }
     },
     "authors": [
         {
