@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 return [
-    'debug'     => env('debug', DEBUG_WARN),
+    'debug'     => env('debug', 'warn'),
     'dashboard' => env('dashboard', '{dashboard}'),
     'domain'    => env('domain', '{domain}'),
     'name'      => env('name', '{name}'),
@@ -19,5 +19,5 @@ return [
         'combinate' => env('resource.combinate', 0),
         'minify'    => env('resource.minify', 0)
     ],
-    'modules'   => ['media', 'rest']
+    'modules'   => ['media', 'rest', 'cms']
 ];

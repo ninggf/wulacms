@@ -22,11 +22,13 @@ test*.php
 install.lock
 package-lock.json
 .env
-/extensions/
-/modules/
-/themes/
+/modules/backend/
+/modules/system/
+/modules/rest/
+/modules/media/
+/modules/cms/
+/wwwroot/assets/jqadmin/
 /storage/
 node_modules/
-/wwwroot/assets/jqadmin/
 docker-compose.yml
 docker-compose.yaml
